@@ -3,21 +3,9 @@ var router = express.Router();
 var request = require('request-promise');
 var api = require('./_const');
 
-// TODO: this should be removed
-var apiKey;
-router.use(function(req, res, next) {
-  apiKey = '9zEUDsWNqr0jCQ0MbIad8QgWH0giPxF4';
-
-  if (req.cookies.userApiKey) {
-    apiKey = req.cookies.userApiKey;
-  }
-
-  next();
-});
-
 router.get('/first-tower', function(req, res) {
   var options = {
-    uri: api.API_HALL_OF_FAME_FIRST_TOWER + '?apiKey=' + apiKey,
+    uri: api.API_HALL_OF_FAME_FIRST_TOWER + '?apiKey=' + req.cookies.userApiKey,
     json: true,
   };
 

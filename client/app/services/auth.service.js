@@ -1,4 +1,4 @@
-const API_PERSONAL = 'http://localhost:3000/api/verify-key/';
+const API_PERSONAL = '/api/verify-key/';
 
 class AuthService {
 

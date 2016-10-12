@@ -39,13 +39,15 @@ router.get('/verify-key/:key', function(req, res) {
     });
 });
 
+// The routes should only be avaible if the user
+// has a set cookie with its personal api key
 router.use(function(req, res, next) {
-  if (req.method == 'GET' && req.headers['authorization'] === undefined) {
-    return res.status(403).json({ message: 'Error: No API key provided set'});
+  if (!req.cookies.userApiKey) {
+    return res.json({ message: 'Error: No cookies set'});
   }
-
   next();
 });
+
 
 router.use('/tower', towerRoutes);
 router.use('/achievement', achievementRoutes);

@@ -16,9 +16,9 @@ class LeaderboardController {
 
     $scope.$watch(() => $state.current.name, (newValue) => {
       this.state.view = newValue;
-    });
 
-    this.init();
+      this.init();
+    });
   }
 
   init() {

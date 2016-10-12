@@ -3,7 +3,7 @@ class MeFactory {
     this.$http = $http;
     this._DataCache = DataCache;
 
-    this.urlBase = 'http://localhost:3000/api/me';
+    this.urlBase = '/api/me';
     this.dataCache = DataCache.get();
   }
 

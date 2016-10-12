@@ -3,21 +3,9 @@ var router = express.Router();
 var request = require('request-promise');
 var api = require('./_const');
 
-// TODO: this should be removed
-var apiKey;
-router.use(function(req, res, next) {
-  apiKey = '9zEUDsWNqr0jCQ0MbIad8QgWH0giPxF4';
-
-  if (req.cookies.userApiKey) {
-    apiKey = req.cookies.userApiKey;
-  }
-
-  next();
-});
-
 router.get('/moons/:date', function(req, res) {
   var options = {
-    uri: api.API_LEADERBOARD_MOONS + '/' + req.params.date + '?apiKey=' + apiKey,
+    uri: api.API_LEADERBOARD_MOONS + '/' + req.params.date + '?apiKey=' + req.cookies.userApiKey,
     json: true,
   };
 
@@ -32,12 +20,12 @@ router.get('/moons/:date', function(req, res) {
 
 router.get('/tower-builder/:startDate?/:endDate?', function(req, res) {
   var options = {
-    uri: api.API_LEADERBOARD_TOWER_BUILDER + '?apiKey=' + apiKey + '&start=2000-01-01&end=2020-01-01',
+    uri: api.API_LEADERBOARD_TOWER_BUILDER + '?apiKey=' + req.cookies.userApiKey + '&start=2000-01-01&end=2020-01-01',
     json: true,
   };
 
   if (req.params.startDate && req.params.endDate) {
-    options.uri = api.API_LEADERBOARD_TOWER_BUILDER + '?apiKey=' + apiKey + '&start=' + req.params.startDate + '&end=' + req.params.endDate;
+    options.uri = api.API_LEADERBOARD_TOWER_BUILDER + '?apiKey=' + req.cookies.userApiKey + '&start=' + req.params.startDate + '&end=' + req.params.endDate;
   }
 
   request(options)
@@ -52,13 +40,13 @@ router.get('/tower-builder/:startDate?/:endDate?', function(req, res) {
 // Get leaderboard
 router.get('/:startDate?/:endDate?', function(req, res) {
   var options = {
-    uri: api.API_LEADERBOARD + '?apiKey=' + apiKey + '&start=2000-01-01&end=2020-01-01',
+    uri: api.API_LEADERBOARD + '?apiKey=' + req.cookies.userApiKey + '&start=2000-01-01&end=2020-01-01',
     json: true,
   };
 
   if (req.params.startDate && req.params.endDate) {
     var options = {
-      uri: api.API_LEADERBOARD + '?apiKey=' + apiKey + '&start=' + req.params.startDate + '&end=' + req.params.endDate,
+      uri: api.API_LEADERBOARD + '?apiKey=' + req.cookies.userApiKey + '&start=' + req.params.startDate + '&end=' + req.params.endDate,
       json: true,
     };
   }

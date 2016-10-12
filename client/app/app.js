@@ -100,36 +100,4 @@ angular.module('app', [
     }
   })
 
-  .factory('httpRequestInterceptor', ($cookies, $injector, $state, $q, $rootScope) => {
-    'ngInject';
-    return {
-      responseError: (responseRejection) => {
-
-        if(responseRejection.status === 403) {
-          $state.go('login');
-        }
-
-        return $q.reject( responseRejection );
-      },
-
-      request: (config) => {
-        if (config.url.indexOf('http://localhost') == 0) {
-          if ($cookies.get('userApiKey')) {
-            config.headers['Authorization'] = $cookies.get('userApiKey');
-          }
-          else {
-            config.headers['Authorization'] = undefined;
-          }
-        }
-
-        return config;
-      }
-    };
-  })
-
-  .config(function ($httpProvider) {
-    'ngInject';
-    $httpProvider.interceptors.push('httpRequestInterceptor');
-  })
-
   .component('app', AppComponent);

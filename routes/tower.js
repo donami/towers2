@@ -3,29 +3,17 @@ var router = express.Router();
 var request = require('request-promise');
 var api = require('./_const');
 
-// TODO: remove this
-var apiKey;
-router.use(function(req, res, next) {
-  apiKey = '9zEUDsWNqr0jCQ0MbIad8QgWH0giPxF4';
-
-  if (req.cookies.userApiKey) {
-    apiKey = req.cookies.userApiKey;
-  }
-
-  next();
-});
-
 // Get a list of all towers
 router.get('/all/:startDate?/:endDate?', function(req, res) {
   if (req.params.startDate && req.params.endDate) {
     var options = {
-      uri: api.API_TOWER_LIST + '?apiKey=' + apiKey + '&start=' + req.params.startDate + '&end=' + req.params.endDate,
+      uri: api.API_TOWER_LIST + '?apiKey=' + req.cookies.userApiKey + '&start=' + req.params.startDate + '&end=' + req.params.endDate,
       json: true,
     };
   }
   else {
     var options = {
-      uri: api.API_TOWER_LIST + '?apiKey=' + apiKey + '&start=2010-01-01&end=2020-01-01',
+      uri: api.API_TOWER_LIST + '?apiKey=' + req.cookies.userApiKey + '&start=2010-01-01&end=2020-01-01',
       json: true,
     };
   }
@@ -43,13 +31,13 @@ router.get('/stats/:startDate?/:endDate?', function(req, res) {
 
   if (req.params.startDate && req.params.endDate) {
     var options = {
-      uri: api.API_TOWER_STATISTICS + '?apiKey=' + apiKey + '&start=' + req.params.startDate + '&end=' + req.params.endDate,
+      uri: api.API_TOWER_STATISTICS + '?apiKey=' + req.cookies.userApiKey + '&start=' + req.params.startDate + '&end=' + req.params.endDate,
       json: true,
     };
   }
   else {
     var options = {
-      uri: api.API_TOWER_STATISTICS + '?apiKey=' + apiKey + '&start=2010-01-01&end=2040-01-01',
+      uri: api.API_TOWER_STATISTICS + '?apiKey=' + req.cookies.userApiKey + '&start=2010-01-01&end=2040-01-01',
       json: true,
     };
   }
@@ -67,7 +55,7 @@ router.get('/:id', function(req, res) {
   var towerId = req.params.id;
 
   var towerPromise = new Promise(function(resolve, reject) {
-    request(api.API_TOWER_LIST + '?apiKey=' + apiKey + '&start=2010-01-01&end=2040-01-01', function(error, response, body) {
+    request(api.API_TOWER_LIST + '?apiKey=' + req.cookies.userApiKey + '&start=2010-01-01&end=2040-01-01', function(error, response, body) {
       if (error) reject(error);
       else {
         var towers = JSON.parse(body);
@@ -82,7 +70,7 @@ router.get('/:id', function(req, res) {
   });
 
   var statsPromise = new Promise(function(resolve, reject) {
-    request(api.API_TOWER_STATISTICS + '?apiKey=' + apiKey + '&start=2010-01-01&end=2040-01-01', function(error, response, body) {
+    request(api.API_TOWER_STATISTICS + '?apiKey=' + req.cookies.userApiKey + '&start=2010-01-01&end=2040-01-01', function(error, response, body) {
       if (error) reject(error);
       else {
         towerPromise.then(function(tower) {
