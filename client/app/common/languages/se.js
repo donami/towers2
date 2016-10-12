@@ -19,6 +19,7 @@ export default {
   '_GELD_BONUS': 'Geld bonus',
   '_TOWERS_CLAIMED': 'Anspråk på torn',
   '_DAYS_WITH_MOST_CLAIMS': 'Dagar med flest anspråk',
+  '_CLAIMS_PER_WEEK_DAY': 'Claims per veckodag',
   '_PERSONAL_STATS': 'Personliga stats',
   '_YOUR_PERSONAL_PERFORMANCE': 'Din personliga prestation',
   '_LEADERBOARD': 'Leaderboard',

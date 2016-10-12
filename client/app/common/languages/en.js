@@ -19,6 +19,7 @@ export default {
   '_GELD_BONUS': 'Geld bonus',
   '_TOWERS_CLAIMED': 'Towers claimed',
   '_DAYS_WITH_MOST_CLAIMS': 'Days with most claims',
+  '_CLAIMS_PER_WEEK_DAY': 'Claims per week day',
   '_PERSONAL_STATS': 'Personal stats',
   '_YOUR_PERSONAL_PERFORMANCE': 'Your personal performance',
   '_LEADERBOARD': 'Leaderboard',

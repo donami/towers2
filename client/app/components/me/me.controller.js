@@ -46,6 +46,22 @@ class MeController {
           }
         }
       },
+      claimsPerWeekDay: {
+        title: '_CLAIMS_PER_WEEK_DAY',
+        type: 'bar',
+        data: [1, 2, 3, 4, 5, 6, 7],
+        labels: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
+        series: ['Claims per week day'],
+        options: {
+          scales: {
+            yAxes: [{
+              ticks: {
+                min: 0,
+              }
+            }]
+          }
+        }
+      },
       claimsPerDay: {
         title: 'Claims per day this week',
         type: 'bar',
@@ -88,7 +104,7 @@ class MeController {
 
         this.getDaysWithMostClaims(response.data);
         this.getClaimsPerDay(response.data);
-
+        this.getClaimsPerWeekDay(response.data);
       })
       .catch(error => console.log(error));
   }
@@ -142,6 +158,26 @@ class MeController {
     this.claimedTowers = this.$filter('orderBy')(this.claimedTowers, this.orderBy, this.reverse);
   }
 
+  // Get data for graph, displaying claims per weekday
+  getClaimsPerWeekDay(data) {
+    data = data.map(obj => {
+      let date = moment(obj.claimed_on);
+      obj.claimed_on = date.isoWeekday();
+
+      return obj;
+    });
+
+    data = _.chain(data)
+              .countBy(obj => obj.claimed_on)
+              .pairs()
+              .value();
+
+    let values = [];
+
+    data.forEach(obj => values.push(obj[1]));
+
+    this.graphData.claimsPerWeekDay.data = values;
+  }
 
   // Get the days that user has claimed the most towers
   getDaysWithMostClaims(data) {
