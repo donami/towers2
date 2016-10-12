@@ -2,16 +2,21 @@ class Popup {
   constructor() {
     this.restrict = 'AE';
     this.scope = {
-      claims: '='
+      claims: '=',
+      geldCollected: '=',
+      geldBonus: '=',
     };
   }
 
   link(scope, elem, attrs) {
-    var text = 'You claimed ' + scope.claims.length + ' towers this day';
+    let text = 'You claimed ' + scope.claims.length + ' towers this day';
 
     if (scope.claims.length == 1) {
       text = 'You claimed ' + scope.claims.length + ' tower this day';
     }
+
+    text += '<br> You collected ' + scope.geldCollected + ' geld';
+    text += '<br> You gained ' + scope.geldBonus + ' geld bonus';
 
     elem
       .addClass('tool-tip')

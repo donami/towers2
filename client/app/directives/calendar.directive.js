@@ -25,7 +25,9 @@ function CalendarController($scope, MeFactory) {
     range.by('days', function(moment) {
       days.push({
         date: moment,
-        claims: []
+        claims: [],
+        geld_collected: 0,
+        geld_bonus: 0
       });
     });
 
@@ -61,12 +63,18 @@ function CalendarController($scope, MeFactory) {
   // Handle the claims and attatch it to the calendar day
   function handleData(data) {
     vm.days.map(function(day) {
-      var claims = data.filter(function(obj) {
+      var claims = data.filter((obj) => {
         return moment(obj.claimed_on).format('YYYY-MM-DD') == day.date.format('YYYY-MM-DD');
       });
 
       if (claims.length) {
         day.claims = day.claims.concat(claims);
+
+        // Add this days geld collected to total for day
+        claims.forEach(obj => {
+          day.geld_collected += parseInt(obj.geld_collected);
+          day.geld_bonus += parseInt(obj.geld_bonus);
+        });
       }
     });
   }
