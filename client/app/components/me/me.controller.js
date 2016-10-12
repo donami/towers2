@@ -78,6 +78,13 @@ class MeController {
             }]
           }
         }
+      },
+      claimsPerHour: {
+        title: 'Claims per hour',
+        type: 'line',
+        data: [],
+        labels: ['00', '01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23'],
+        series: ['Claims made this hour'],
       }
     };
 
@@ -105,6 +112,7 @@ class MeController {
         this.getDaysWithMostClaims(response.data);
         this.getClaimsPerDay(response.data);
         this.getClaimsPerWeekDay(response.data);
+        this.getClaimsPerHour(response.data);
       })
       .catch(error => console.log(error));
   }
@@ -134,6 +142,33 @@ class MeController {
       .catch(error => console.log(error));
   }
 
+  // Get claims per hour for graph
+  getClaimsPerHour(claims) {
+    let data = _.map(claims, _.clone);
+    let values = [];
+
+    // Format claimed_on to hour format
+    data.map(obj => {
+      obj.claimed_on = moment(obj.claimed_on).format('H');
+      return obj;
+    });
+
+    data = _.countBy(data, (obj) => obj.claimed_on);
+
+    // Loop through all hours of day,
+    // if there is no matching counts, insert 0
+    for (var i = 0; i < 24; i++) {
+      let claimCount = 0;
+
+      if (data[i] !== undefined)
+        claimCount = data[i];
+
+      values.push(claimCount);
+    }
+
+    this.graphData.claimsPerHour.data.push(values);
+  }
+
   // Filter for paginating the results
   paginate(value) {
     let begin, end, index;
@@ -159,7 +194,8 @@ class MeController {
   }
 
   // Get data for graph, displaying claims per weekday
-  getClaimsPerWeekDay(data) {
+  getClaimsPerWeekDay(claims) {
+    let data = _.map(claims, _.clone);
     data = data.map(obj => {
       let date = moment(obj.claimed_on);
       obj.claimed_on = date.isoWeekday();
@@ -180,7 +216,9 @@ class MeController {
   }
 
   // Get the days that user has claimed the most towers
-  getDaysWithMostClaims(data) {
+  getDaysWithMostClaims(claims) {
+    let data = _.map(claims, _.clone);
+
     data = data.map((obj) => {
       obj.claimed_on = obj.claimed_on.substr(0, 10);
       return obj;
@@ -200,7 +238,9 @@ class MeController {
   }
 
   // Get data for graph, displaying all claims made current week
-  getClaimsPerDay(data) {
+  getClaimsPerDay(claims) {
+    let data = _.map(claims, _.clone);
+
     var thisYear = moment().format('YYYY');
 
     // Get only the day without the time and remove dates from other year
