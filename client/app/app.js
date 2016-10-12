@@ -64,26 +64,18 @@ angular.module('app', [
     });
   })
 
-  .run(($cookies, $state, $rootScope) => {
+  .run(($transitions, $cookies, $state) => {
     'ngInject';
 
-    $rootScope.$on('$stateChangeStart', (e, toState, toParams, fromState, fromParams) => {
+    // Redirect user to login page if
+    // no api key is set in cookies
+    $transitions.onStart( {}, (transition) => {
+      let to = transition.to();
 
-      // Don't redirect if user is trying to access login page
-      if (toState.name === 'login')
-        return;
-
-      // Check if user has provided api key in cookie
-      if (!$cookies.get('userApiKey')) {
-        console.log('User has not provided API key');
-
-        // Prevent default state
-        e.preventDefault();
-        // Set state to login
-        $state.go('login');
+      if (!$cookies.get('userApiKey') && to.name !== 'login') {
+        return $state.target('login');
       }
-
-    });
+    })
   })
 
   .config((CacheFactoryProvider) => {
