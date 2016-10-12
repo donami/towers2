@@ -1,0 +1,112 @@
+@import 'common/mixins';
+@import 'common/styles';
+@import 'common/misc';
+@import 'common/calendar';
+
+body {
+  background: $background-color;
+  color: $primary-color;
+  font-family: 'Open Sans', sans-serif;
+}
+
+h1 {
+  font-weight: 300;
+}
+
+a {
+  color: $link-color;
+
+  &:hover {
+    text-decoration: none;
+    color: $link-color-hover;
+  }
+}
+
+div#main-content {
+
+  div.content {
+    min-height: 800px;
+  }
+
+}
+
+div#footer {
+  background: #131313;
+  margin-top: 40px;
+  color: #fff;
+
+  a {
+    &:hover {
+      color: $link-color;
+    }
+  }
+
+  div.content {
+    padding: 20px 0;
+  }
+}
+
+div.content-header {
+  background: url('/assets/page_header.jpg') center center;
+  padding: 60px 0;
+  margin-bottom: 20px;
+
+  h1 {
+    color: #2196f3;
+    text-transform: uppercase;
+    font-size: 2.4em;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 700;
+  }
+  h2 {
+    font-family: 'Roboto', sans-serif;
+    color: #fff;
+    font-size: 1.8em;
+    font-weight: 700;
+  }
+}
+
+div.hall-of-fame-container {
+  div.fame-box {
+    border: #ccc 1px solid;
+    padding: 20px;
+    margin-bottom: 20px;
+
+    h4 {
+      margin-top: 0;
+    }
+    img.flag {
+      max-width: 64px;
+    }
+  }
+}
+
+div.achievements-container {
+  div.achievement-box {
+    border: #ccc 1px solid;
+    padding: 20px;
+    margin-bottom: 20px;
+    opacity: 0.7;
+
+    &.achieved {
+      color: #333;
+      border-color: #d6e9c6;
+      background: #d6e9c6;
+      opacity: 1;
+    }
+
+    h4 {
+      margin-top: 0;
+    }
+
+    .icon {
+      img {
+        max-width: 100%;
+      }
+    }
+
+    .achieved-at {
+      color: #666;
+    }
+  }
+}

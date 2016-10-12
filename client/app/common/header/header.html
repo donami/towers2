@@ -1,0 +1,27 @@
+<div id="header" ng-if="vm.authed">
+  <div class="container">
+
+    <!-- Row -->
+    <div class="row">
+
+      <div class="col-md-2 col-xs-2">
+
+        <div class="logo">
+          <a ui-sref="me">
+            <img src="/assets/logo.png" width="200" alt="Logo">
+          </a>
+        </div>
+
+      </div>
+
+      <div class="col-md-10 col-xs-10">
+
+        <navigation authed="vm.authed"></navigation>
+
+      </div>
+
+    </div>
+    <!-- / Row -->
+
+  </div>
+</div>

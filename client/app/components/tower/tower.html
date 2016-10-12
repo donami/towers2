@@ -1,0 +1,36 @@
+<div class="content-header">
+
+  <div class="container">
+    <h1>{{ '_TOWER' | translate }}</h1>
+    <h2>{{ '_TOWER_SUBTITLE' | translate }}</h2>
+  </div>
+
+</div>
+
+<div class="tower-single-container container">
+  <div class="heading">
+
+    <div class="options">
+      <div class="btn-group" uib-dropdown is-open="status.isopen">
+        <button id="single-button" type="button" class="btn btn-default" uib-dropdown-toggle ng-disabled="disabled">
+          View <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="single-button">
+          <li ng-class="{active: vm.state.view == 'tower.main'}"><a ui-sref=".main">Information</a></li>
+          <li ng-class="{active: vm.state.view == 'tower.log'}"><a ui-sref=".log">Log</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <h1 class="page-title">{{ '_VIEW_TOWER' | translate }}</h1>
+  </div>
+
+  <spinner ng-if="vm.state.loading"></spinner>
+
+  <div ng-if="!vm.tower && vm.error">
+    <div class="alert alert-warning" ng-bind="vm.error.message"></div>
+  </div>
+
+  <div ui-view></div>
+
+</div>

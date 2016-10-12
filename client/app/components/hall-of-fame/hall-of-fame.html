@@ -1,0 +1,20 @@
+<div class="content-header">
+
+  <div class="container">
+    <h1>Hall of Fame</h1>
+    <h2>{{ '_HALL_OF_FAME_SUBTITLE' | translate }}</h2>
+  </div>
+
+</div>
+
+<div class="hall-of-fame-container container">
+  <div class="heading">
+    <h1 class="page-title">Hall of Fame</h1>
+  </div>
+
+
+  <h3 translate>{{ '_FIRST_BUILD_COUNTRY' }}</h3>
+
+  <hall-of-fame data-ng-repeat="country in vm.countries" class="fame-box" country="country" />
+
+</div>
