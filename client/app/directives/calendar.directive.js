@@ -19,8 +19,8 @@ function CalendarController($scope, MeFactory) {
   function getDaysInMonth(startDate) {
     vm.startDate = new Date(startDate.startOf('month'));
     vm.endDate   = new Date(startDate.endOf('month'));
-    var range = moment.range(vm.startDate, vm.endDate);
-    var days = [];
+    let range = moment.range(vm.startDate, vm.endDate);
+    let days = [];
 
     range.by('days', function(moment) {
       days.push({
@@ -63,9 +63,7 @@ function CalendarController($scope, MeFactory) {
   // Handle the claims and attatch it to the calendar day
   function handleData(data) {
     vm.days.map(function(day) {
-      var claims = data.filter((obj) => {
-        return moment(obj.claimed_on).format('YYYY-MM-DD') == day.date.format('YYYY-MM-DD');
-      });
+      var claims = data.filter((obj) => moment(obj.claimed_on).format('YYYY-MM-DD') == day.date.format('YYYY-MM-DD'));
 
       if (claims.length) {
         day.claims = day.claims.concat(claims);

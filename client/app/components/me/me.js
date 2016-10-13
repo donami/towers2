@@ -1,9 +1,19 @@
 import angular from 'angular';
 import uiRouter from 'angular-ui-router';
 import meComponent from './me.component';
+import 'angular-cookies';
+import 'angular-cache';
+import 'angular-translate';
+import Services from './../../services/services';
+import Filters from './../../filters/filters';
 
 let meModule = angular.module('me', [
-  uiRouter
+  uiRouter,
+  Services,
+  Filters,
+  'pascalprecht.translate',
+  'angular-cache',
+  'ngCookies',
 ])
 
 .config(($stateProvider) => {

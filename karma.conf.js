@@ -8,7 +8,11 @@ module.exports = function (config) {
     frameworks: ['mocha', 'chai'],
 
     // list of files/patterns to load in the browser
-    files: [{ pattern: 'spec.bundle.js', watched: false }],
+    files: [
+      { pattern: 'spec.bundle.js', watched: false },
+      // 'node_modules/angular-cookies/angular-cookies.js',
+      'client/app/components/**/*.html',
+    ],
 
     // files to exclude
     exclude: [],
@@ -19,12 +23,26 @@ module.exports = function (config) {
       require("karma-mocha"),
       require("karma-mocha-reporter"),
       require("karma-sourcemap-loader"),
-      require("karma-webpack")
+      require("karma-webpack"),
+      require('karma-ng-html2js-preprocessor')
     ],
 
     // preprocess matching files before serving them to the browser
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
-    preprocessors: { 'spec.bundle.js': ['webpack', 'sourcemap'] },
+    preprocessors: {
+      'spec.bundle.js': ['webpack', 'sourcemap'],
+      "client/app/components/**/*.html": ["ng-html2js"]
+    },
+
+    ngHtml2JsPreprocessor: {
+        // If your build process changes the path to your templates,
+        // use stripPrefix and prependPrefix to adjust it.
+        stripPrefix: "client/",
+        // prependPrefix: "client/",
+
+        // the name of the Angular module to create
+        moduleName: "templates"
+    },
 
     webpack: {
       devtool: 'inline-source-map',

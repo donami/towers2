@@ -33,7 +33,7 @@ angular.module('app', [
     Common,
     Components,
     Filters,
-    Services.name,
+    Services,
     Directives.name
   ])
   .config(($locationProvider) => {

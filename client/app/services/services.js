@@ -25,4 +25,6 @@ export default angular
   .service('DateService', DateService)
   .service('MapService', MapService)
   .service('GraphFilter', GraphFilter)
-  .service('LanguageService', LanguageService);
+  .service('LanguageService', LanguageService)
+
+  .name;

@@ -121,6 +121,11 @@ class MeController {
   getLatestClaimedTower() {
     return this.MeFactory.getLatestClaimedTower()
       .then((response) => {
+
+        if (!response.data.length) {
+          return Promise.reject();
+        }
+        
         let claimedTower = {};
 
         let towerId = response.data[0].lastClaimedTowerId;
