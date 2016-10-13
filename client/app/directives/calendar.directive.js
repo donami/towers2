@@ -1,8 +1,8 @@
 import moment from 'moment';
 import 'moment-range';
 
-CalendarController.$inject = ['$scope', 'MeFactory'];
-function CalendarController($scope, MeFactory) {
+CalendarController.$inject = ['$scope', 'MeFactory', 'MoonFactory'];
+function CalendarController($scope, MeFactory, MoonFactory) {
 
   var vm = this;
 
@@ -27,7 +27,8 @@ function CalendarController($scope, MeFactory) {
         date: moment,
         claims: [],
         geld_collected: 0,
-        geld_bonus: 0
+        geld_bonus: 0,
+        newMoon: false,
       });
     });
 
@@ -58,12 +59,16 @@ function CalendarController($scope, MeFactory) {
       .catch(function(error) {
         console.log(error);
       });
+
+    MoonFactory.getNewMoons()
+      .then((response) => handleNewMoons(response.data))
+      .catch((error) => console.log(error));
   }
 
   // Handle the claims and attatch it to the calendar day
   function handleData(data) {
-    vm.days.map(function(day) {
-      var claims = data.filter((obj) => moment(obj.claimed_on).format('YYYY-MM-DD') == day.date.format('YYYY-MM-DD'));
+    vm.days.map((day) => {
+      let claims = data.filter((obj) => moment(obj.claimed_on).format('YYYY-MM-DD') == day.date.format('YYYY-MM-DD'));
 
       if (claims.length) {
         day.claims = day.claims.concat(claims);
@@ -75,6 +80,23 @@ function CalendarController($scope, MeFactory) {
         });
       }
     });
+  }
+
+  function handleNewMoons(data) {
+    // Only get new moons for the next three years
+    let maxDate = moment().add(3, 'years');
+    data = data.filter((obj) => new Date(obj.iso8601) < maxDate);
+
+    vm.days.map((day) => {
+      let newMoon = data.find((obj) => moment(obj.iso8601).format('YYYY-MM-DD') == day.date.format('YYYY-MM-DD'));
+
+      if (newMoon) {
+        day.newMoon = newMoon;
+      }
+
+      return day;
+    });
+
   }
 
 }

@@ -5,18 +5,27 @@ class Popup {
       claims: '=',
       geldCollected: '=',
       geldBonus: '=',
+      newMoon: '='
     };
   }
 
   link(scope, elem, attrs) {
-    let text = 'You claimed ' + scope.claims.length + ' towers this day';
+    let text = '';
 
-    if (scope.claims.length == 1) {
-      text = 'You claimed ' + scope.claims.length + ' tower this day';
+    if (scope.claims.length > 0) {
+      text = 'You claimed ' + scope.claims.length + ' towers this day <br>';
+
+      if (scope.claims.length == 1) {
+        text = 'You claimed ' + scope.claims.length + ' tower this day <br>';
+      }
+
+      text += 'You collected ' + scope.geldCollected + ' geld <br>';
+      text += 'You gained ' + scope.geldBonus + ' geld bonus <br>';
     }
 
-    text += '<br> You collected ' + scope.geldCollected + ' geld';
-    text += '<br> You gained ' + scope.geldBonus + ' geld bonus';
+    if (scope.newMoon) {
+      text += 'Today is a new moon! <br>';
+    }
 
     elem
       .addClass('tool-tip')

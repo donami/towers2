@@ -51,11 +51,20 @@ $calendar-border-style: #ddd 1px solid;
         border-left: $calendar-border-style;
         clear: both;
       }
+      
       &.has-claims {
         background: #E7F4F2;
 
         &:hover {
           background: #93e2d5;
+        }
+      }
+
+      &.is-new-moon {
+        background: #ffbaba;
+
+        &:hover {
+          background: #fc7b84;
         }
       }
 
