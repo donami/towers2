@@ -1,26 +1,26 @@
 <ul class="menu pull-right">
 
-  <li><a ui-sref="me">{{ '_MY_STATS' | translate }}</a></li>
-  <li><a ui-sref="graph">{{ '_STATISTICS' | translate }}</a></li>
-  <li><a ui-sref="towers">{{ '_TOWERS_ ' | translate}}</a></li>
-  <li><a ui-sref="leaderboard">{{ '_LEADERBOARD' | translate }}</a></li>
-  <li><a ui-sref="hallOfFame">{{ '_HALL_OF_FAME' | translate }}</a></li>
-  <li><a ui-sref="achievements">{{ '_ACHIEVEMENTS' | translate }}</a></li>
-  <li class="login pointer" ng-if="!vm.authed"><a ui-sref="login">{{ '_LOGIN' | translate }}</a></li>
-  <li class="login pointer" ng-if="vm.authed"><a ng-click="vm.logout()">{{ '_LOGOUT' | translate }}</a></li>
+  <li><a ui-sref="me" translate="_MY_STATS"></a></li>
+  <li><a ui-sref="graph" translate="_STATISTICS"></a></li>
+  <li><a ui-sref="towers" translate="_TOWERS"></a></li>
+  <li><a ui-sref="leaderboard" translate="_LEADERBOARD"></a></li>
+  <li><a ui-sref="hallOfFame" translate="_HALL_OF_FAME"></a></li>
+  <li><a ui-sref="achievements" translate="_ACHIEVEMENTS"></a></li>
+  <li class="login pointer" ng-if="!vm.authed"><a ui-sref="login" translate="_LOGIN"></a></li>
+  <li class="login pointer" ng-if="vm.authed"><a ng-click="vm.logout()" translate="_LOGOUT"></a></li>
 
   <li class="menu-dropdown" uib-dropdown is-open="status.isopen">
     <a href="#" uib-dropdown-toggle>☰</a>
     <ul class="dropdown-menu dropdown-menu-right">
-      <li><a ui-sref="me">{{ '_MY_STATS' | translate }}</a></li>
-      <li><a ui-sref="graph">{{ '_STATISTICS' | translate }}</a></li>
-      <li><a ui-sref="towers">{{ '_TOWERS_ ' | translate}}</a></li>
-      <li><a ui-sref="leaderboard">{{ '_LEADERBOARD' | translate }}</a></li>
-      <li><a ui-sref="hallOfFame">{{ '_HALL_OF_FAME' | translate }}</a></li>
-      <li><a ui-sref="achievements">{{ '_ACHIEVEMENTS' | translate }}</a></li>
+      <li><a ui-sref="me" translate="_MY_STATS"></a></li>
+      <li><a ui-sref="graph" translate="_STATISTICS"></a></li>
+      <li><a ui-sref="towers" translate="_TOWERS"></a></li>
+      <li><a ui-sref="leaderboard" translate="_LEADERBOARD"></a></li>
+      <li><a ui-sref="hallOfFame" translate="_HALL_OF_FAME"></a></li>
+      <li><a ui-sref="achievements" translate="_ACHIEVEMENTS"></a></li>
       <li role="separator" class="divider"></li>
-      <li class="login pointer" ng-if="!vm.authed"><a ui-sref="login">{{ '_LOGIN' | translate }}</a></li>
-      <li class="login pointer" ng-if="vm.authed"><a ng-click="vm.logout()">{{ '_LOGOUT' | translate }}</a></li>
+      <li class="login pointer" ng-if="!vm.authed"><a ui-sref="login" translate="_LOGIN"></a></li>
+      <li class="login pointer" ng-if="vm.authed"><a ng-click="vm.logout()" translate="_LOGOUT"></a></li>
     </ul>
   </li>
 
