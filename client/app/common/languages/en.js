@@ -22,6 +22,8 @@ export default {
   '_CLAIMS_PER_WEEK_DAY': 'Claims per week day',
   '_PERSONAL_STATS': 'Personal stats',
   '_YOUR_PERSONAL_PERFORMANCE': 'Your personal performance',
+  '_TOWERS': 'Towers',
+  '_TOWERS_SUBTITLE': 'List of towers',
   '_LEADERBOARD': 'Leaderboard',
   '_LEADERBOARD_SUBTITLE': 'All the top players',
   '_PLAYER': 'Player',

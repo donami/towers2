@@ -125,7 +125,7 @@ class MeController {
         if (!response.data.length) {
           return Promise.reject();
         }
-        
+
         let claimedTower = {};
 
         let towerId = response.data[0].lastClaimedTowerId;
@@ -188,6 +188,7 @@ class MeController {
     this.reverse = !this.reverse;
     this.orderBy = property;
 
+    console.log(this.claimedTowers);
     if (parseFloat) {
       this.claimedTowers.forEach((obj) => {
         if (obj[property] !== '')

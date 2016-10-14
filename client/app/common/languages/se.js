@@ -22,6 +22,8 @@ export default {
   '_CLAIMS_PER_WEEK_DAY': 'Claims per veckodag',
   '_PERSONAL_STATS': 'Personliga stats',
   '_YOUR_PERSONAL_PERFORMANCE': 'Din personliga prestation',
+  '_TOWERS': 'Torn',
+  '_TOWERS_SUBTITLE': 'Lista över torn',
   '_LEADERBOARD': 'Leaderboard',
   '_LEADERBOARD_SUBTITLE': 'Lista över toppspelare',
   '_PLAYER': 'Alias',
