@@ -116,7 +116,7 @@ router.get('/refresh', function(req, res) {
         return this.values;
 
       this.values.map(function(obj) {
-        if (playerStats.tower_count >= obj.value)
+        if (playerStats.count >= obj.value)
           obj.achieved = true;
         return obj.value;
       });
@@ -217,10 +217,16 @@ router.get('/refresh', function(req, res) {
 
   }
 
+  // TODO: achievement for tower builds should use tower_builder API
+
   var achievements = [];
-  request({ uri: api.API_LEADERBOARD + '?apiKey=' + req.cookies.userApiKey + '&start=2010-01-01&end=2017-01-01', json: true })
+  request({ uri: api.API_LEADERBOARD + '?apiKey=' + req.cookies.userApiKey + '&start=2010-01-01&end=2099-01-01', json: true })
     .then(function(response) {
       achievements.push.apply(achievements, TYPE_CLAIM_X_TOWERS.check(response));
+
+      return request({ uri: api.API_LEADERBOARD_TOWER_BUILDER + '?apiKey=' + req.cookies.userApiKey + '&start=2010-01-01&end=2099-01-01', json: true })
+    })
+    .then(function(response) {
       achievements.push.apply(achievements, TYPE_BUILD_X_TOWERS.check(response));
 
       return request({ uri: api.API_HALL_OF_FAME_FIRST_TOWER + '?apiKey=' + req.cookies.userApiKey, json: true })
@@ -229,7 +235,7 @@ router.get('/refresh', function(req, res) {
       achievements.push(TYPE_HALL_OF_FAME.check(response));
     })
     .then(function() {
-      var pClaims = request({ uri: api.API_PERSONAL + '?apiKey=' + req.cookies.userApiKey + '&start=2010-01-01&end=2017-01-01', json: true })
+      var pClaims = request({ uri: api.API_PERSONAL + '?apiKey=' + req.cookies.userApiKey + '&start=2010-01-01&end=2099-01-01', json: true })
       var pMoons = request({ uri: api.API_NEW_MOONS + '?apiKey=' + req.cookies.userApiKey, json: true });
 
       return Promise.all([pMoons, pClaims]);
@@ -237,7 +243,7 @@ router.get('/refresh', function(req, res) {
     .then(function(values) {
       achievements.push.apply(achievements, TYPE_FULL_MOON.check(values[0], values[1]));
 
-      return request({ uri: api.API_PERSONAL + '?apiKey=' + req.cookies.userApiKey + '&start=2010-01-01&end=2017-01-01', json: true });
+      return request({ uri: api.API_PERSONAL + '?apiKey=' + req.cookies.userApiKey + '&start=2010-01-01&end=2099-01-01', json: true });
     })
     .then(function(response) {
       achievements.push.apply(achievements, TYPE_VISITOR_X.check(response));

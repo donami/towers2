@@ -10,4 +10,4 @@ class FooterController {
   }
 }
 
-export default FooterController;  
+export default FooterController;

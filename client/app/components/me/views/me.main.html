@@ -1,7 +1,7 @@
 <!-- Main view -->
 <div>
 
-  <div><strong>{{ '_YOUR_API_KEY' | translate }}</strong> {{ vm.userApiKey }}</div>
+  <div class="alert alert-info"><strong>{{ '_YOUR_API_KEY' | translate }}</strong> {{ vm.userApiKey }}</div>
 
   <div ng-if="vm.lastClaimedTower.tower_id > 0">
     <h2>{{ '_LATEST_CLAIMED_TOWER' | translate }}</h2>

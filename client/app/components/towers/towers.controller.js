@@ -4,7 +4,7 @@ class TowerController {
 
     this.TowerFactory = TowerFactory;
 
-    this.towers = new NgTableParams({count: 5});
+    this.towers = new NgTableParams({count: 10});
 
     this.init();
   }

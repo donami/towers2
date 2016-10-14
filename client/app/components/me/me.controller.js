@@ -188,7 +188,6 @@ class MeController {
     this.reverse = !this.reverse;
     this.orderBy = property;
 
-    console.log(this.claimedTowers);
     if (parseFloat) {
       this.claimedTowers.forEach((obj) => {
         if (obj[property] !== '')
