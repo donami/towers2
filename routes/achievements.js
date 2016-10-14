@@ -83,9 +83,86 @@ router.get('/refresh', function(req, res) {
     value: 50,
     achieved: false,
   };
+  const STREAK_2 = {
+    id: 'STREAK_2',
+    title: 'Streak 2',
+    value: 2,
+    achieved: false,
+  };
+  const STREAK_5 = {
+    id: 'STREAK_5',
+    title: 'Streak 5',
+    value: 5,
+    achieved: false,
+  };
+  const STREAK_10 = {
+    id: 'STREAK_10',
+    title: 'Streak 10',
+    value: 10,
+    achieved: false,
+  };
+  const STREAK_20 = {
+    id: 'STREAK_20',
+    title: 'Streak 20',
+    value: 20,
+    achieved: false,
+  };
+
+  // Check if user has earned achievement for claiming a tower for X days in a row
+  const TYPE_STREAK_X = new (function() {
+    this.values = [STREAK_2, STREAK_5, STREAK_10, STREAK_20];
+    this.check = function(data) {
+
+      data = _.sortBy(data, (obj) => {
+        return obj.claimed_on;
+      });
+
+      var streak = 1;
+      var highestStreak = 0;
+      var prevDate;
+
+      var claimedDates = data.map((claim) => claim.claimed_on.substring(0, 10));
+
+      // Ignore claims made the same day
+      claimedDates = _.uniq(claimedDates);
+
+      claimedDates.forEach((claim) => {
+        // If current claim date is same as before increase streak count
+        if (moment(claim).subtract(1, 'days').format('YYYY-MM-DD') === prevDate) {
+          streak++;
+        }
+        else {
+          // if streak is higher than previous highest
+          // set the variable to current streak
+          if (streak > highestStreak) {
+            highestStreak = streak;
+          }
+          // Since the claimed on date is not same
+          // as day before reset it
+          streak = 1;
+        }
+        // Use current date as previous date for next iteration
+        prevDate = claim;
+      });
+
+      this.values.map((obj) => {
+        if (obj.value <= highestStreak) {
+          obj.achieved = true;
+        }
+        return obj;
+      });
+
+      return this.values;
+    };
+    this.promise = new Promise((resolve, reject) => {
+      request({ uri: api.API_PERSONAL + '?apiKey=' + req.cookies.userApiKey + '&start=' + API_MIN_DATE + '&end=' + API_MAX_DATE, json: true })
+        .then((response) => resolve(this.check(response)))
+        .catch((error) => reject(error));
+    });
+  });
 
   // Check if user has earned achievement for claiming X amount of different towers
-  var TYPE_VISITOR_X = new (function() {
+  const TYPE_VISITOR_X = new (function() {
     this.values = [VISITOR_10, VISITOR_25, VISITOR_50];
     this.check = function(data) {
       var filteredData = _.countBy(data, function(obj) {
@@ -113,7 +190,7 @@ router.get('/refresh', function(req, res) {
   });
 
   // Check if user has earned achievement for building X amount of towers
-  var TYPE_BUILD_X_TOWERS = new (function() {
+  const TYPE_BUILD_X_TOWERS = new (function() {
     this.values = [BUILDER_10, BUILDER_20, BUILDER_30];
     this.check = function(data) {
       playerStats = data.find(function(obj) {
@@ -139,7 +216,7 @@ router.get('/refresh', function(req, res) {
   });
 
   // Check if user has earned achievement for claiming X amount of towers
-  var TYPE_CLAIM_X_TOWERS = new (function() {
+  const TYPE_CLAIM_X_TOWERS = new (function() {
     this.values = [CLAIM_100_TOWERS, CLAIM_50_TOWERS];
     this.check = function(data) {
       playerStats = data.find(function(obj) {
@@ -165,7 +242,7 @@ router.get('/refresh', function(req, res) {
   });
 
   // Check if user has a spot on the hall of fame
-  var TYPE_HALL_OF_FAME = new (function() {
+  const TYPE_HALL_OF_FAME = new (function() {
     this.values = ON_HALL_OF_FAME;
     this.check = function(data) {
       data = data.find(function(obj) {
@@ -187,7 +264,7 @@ router.get('/refresh', function(req, res) {
   });
 
   // Check if user has made a claim within x minutes of a new moon
-  var TYPE_FULL_MOON = new (function() {
+  const TYPE_FULL_MOON = new (function() {
     var self = this;
     this.values = [FULL_MOON_10, FULL_MOON_25];
     this.check = function(newMoons, data) {
@@ -257,7 +334,8 @@ router.get('/refresh', function(req, res) {
           TYPE_BUILD_X_TOWERS.promise,
           TYPE_HALL_OF_FAME.promise,
           TYPE_FULL_MOON.promise,
-          TYPE_VISITOR_X.promise
+          TYPE_VISITOR_X.promise,
+          TYPE_STREAK_X.promise
         ])
         .then((values) => resolve(_.flatten(values)))
         .catch((error) => reject(error));
