@@ -6,6 +6,9 @@ var _ = require('underscore');
 var api = require('./_const');
 var db = require('./../db');
 
+const API_MIN_DATE = '2010-01-01';
+const API_MAX_DATE = '2099-01-01';
+
 router.get('/refresh', function(req, res) {
 
   var playerId = req.cookies.userPlayerId;
@@ -14,67 +17,67 @@ router.get('/refresh', function(req, res) {
     res.status(403).json({message: 'No player id found'});
 
   // The achievements
-  var CLAIM_100_TOWERS = {
+  const CLAIM_100_TOWERS = {
     id: 'CLAIM_100_TOWERS',
     title: 'Claim 100 towers',
     value: 100,
     achieved: false,
   };
-  var CLAIM_50_TOWERS = {
+  const CLAIM_50_TOWERS = {
     id: 'CLAIM_50_TOWERS',
     title: 'Claim 50 towers',
     value: 50,
     achieved: false
   };
-  var ON_HALL_OF_FAME = {
+  const ON_HALL_OF_FAME = {
     id: 'ON_HALL_OF_FAME',
     title: 'Be part of the Hall of Fame',
     value: null,
     achieved: false,
   };
-  var FULL_MOON_10 = {
+  const FULL_MOON_10 = {
     id: 'FULL_MOON_10',
     title: 'Full Moon 10',
     value: 10,
     achieved: false,
   };
-  var FULL_MOON_25 = {
+  const FULL_MOON_25 = {
     id: 'FULL_MOON_25',
     title: 'Full Moon 25',
     value: 25,
     achieved: false,
   };
-  var BUILDER_10 = {
+  const BUILDER_10 = {
     id: 'BUILDER_10',
     title: 'Builder 10',
     value: 10,
     achieved: false,
   };
-  var BUILDER_20 = {
+  const BUILDER_20 = {
     id: 'BUILDER_20',
     title: 'Builder 20',
     value: 20,
     achieved: false,
   };
-  var BUILDER_30 = {
+  const BUILDER_30 = {
     id: 'BUILDER_30',
     title: 'Builder 30',
     value: 30,
     achieved: false,
   };
-  var VISITOR_10 = {
+  const VISITOR_10 = {
     id: 'VISITOR_10',
     title: 'Visitor 10',
     value: 10,
     achieved: false,
   };
-  var VISITOR_25 = {
+  const VISITOR_25 = {
     id: 'VISITOR_25',
     title: 'Visitor 25',
     value: 25,
     achieved: false,
   };
-  var VISITOR_50 = {
+  const VISITOR_50 = {
     id: 'VISITOR_50',
     title: 'Visitor 50',
     value: 50,
@@ -102,6 +105,11 @@ router.get('/refresh', function(req, res) {
 
       return this.values;
     }
+    this.promise = new Promise((resolve, reject) => {
+      request({ uri: api.API_PERSONAL + '?apiKey=' + req.cookies.userApiKey + '&start=' + API_MIN_DATE + '&end=' + API_MAX_DATE, json: true })
+        .then((response) => resolve(this.check(response)))
+        .catch((error) => reject(error));
+    });
   });
 
   // Check if user has earned achievement for building X amount of towers
@@ -122,7 +130,12 @@ router.get('/refresh', function(req, res) {
       });
 
       return this.values;
-    }
+    },
+    this.promise = new Promise((resolve, reject) => {
+      request({ uri: api.API_LEADERBOARD_TOWER_BUILDER + '?apiKey=' + req.cookies.userApiKey + '&start=' + API_MIN_DATE + '&end=' + API_MAX_DATE, json: true })
+        .then((response) => resolve(this.check(response)))
+        .catch((error) => reject(error));
+    });
   });
 
   // Check if user has earned achievement for claiming X amount of towers
@@ -144,6 +157,11 @@ router.get('/refresh', function(req, res) {
 
       return this.values;
     }
+    this.promise = new Promise((resolve, reject) => {
+      request({ uri: api.API_LEADERBOARD + '?apiKey=' + req.cookies.userApiKey + '&start=' + API_MIN_DATE + '&end=' + API_MAX_DATE, json: true })
+        .then((response) => resolve(this.check(response)))
+        .catch((error) => reject(error));
+    });
   });
 
   // Check if user has a spot on the hall of fame
@@ -161,6 +179,11 @@ router.get('/refresh', function(req, res) {
 
       return this.values;
     }
+    this.promise = new Promise((resolve, reject) => {
+      request({ uri: api.API_HALL_OF_FAME_FIRST_TOWER + '?apiKey=' + req.cookies.userApiKey, json: true })
+        .then((response) => resolve(this.check(response)))
+        .catch((error) => reject(error));
+    });
   });
 
   // Check if user has made a claim within x minutes of a new moon
@@ -194,6 +217,14 @@ router.get('/refresh', function(req, res) {
 
       return this.values;
     }
+    this.promise = new Promise((resolve, reject) => {
+      var pClaims = request({ uri: api.API_PERSONAL + '?apiKey=' + req.cookies.userApiKey + '&start=' + API_MIN_DATE + '&end=' + API_MAX_DATE, json: true });
+      var pMoons = request({ uri: api.API_NEW_MOONS + '?apiKey=' + req.cookies.userApiKey, json: true });
+
+      Promise.all([pClaims, pMoons])
+        .then((values) => resolve(this.check(values[1], values[0])))
+        .catch((error) => reject(error));
+    });
   });
 
   function runQuery(achievements) {
@@ -217,44 +248,28 @@ router.get('/refresh', function(req, res) {
 
   }
 
-  // TODO: achievement for tower builds should use tower_builder API
-
   var achievements = [];
-  request({ uri: api.API_LEADERBOARD + '?apiKey=' + req.cookies.userApiKey + '&start=2010-01-01&end=2099-01-01', json: true })
-    .then(function(response) {
-      achievements.push.apply(achievements, TYPE_CLAIM_X_TOWERS.check(response));
 
-      return request({ uri: api.API_LEADERBOARD_TOWER_BUILDER + '?apiKey=' + req.cookies.userApiKey + '&start=2010-01-01&end=2099-01-01', json: true })
-    })
-    .then(function(response) {
-      achievements.push.apply(achievements, TYPE_BUILD_X_TOWERS.check(response));
-
-      return request({ uri: api.API_HALL_OF_FAME_FIRST_TOWER + '?apiKey=' + req.cookies.userApiKey, json: true })
-    })
-    .then(function(response) {
-      achievements.push(TYPE_HALL_OF_FAME.check(response));
-    })
-    .then(function() {
-      var pClaims = request({ uri: api.API_PERSONAL + '?apiKey=' + req.cookies.userApiKey + '&start=2010-01-01&end=2099-01-01', json: true })
-      var pMoons = request({ uri: api.API_NEW_MOONS + '?apiKey=' + req.cookies.userApiKey, json: true });
-
-      return Promise.all([pMoons, pClaims]);
-    })
-    .then(function(values) {
-      achievements.push.apply(achievements, TYPE_FULL_MOON.check(values[0], values[1]));
-
-      return request({ uri: api.API_PERSONAL + '?apiKey=' + req.cookies.userApiKey + '&start=2010-01-01&end=2099-01-01', json: true });
-    })
-    .then(function(response) {
-      achievements.push.apply(achievements, TYPE_VISITOR_X.check(response));
-    })
-    .finally(function() {
-      runQuery(achievements);
-      res.json(achievements);
-    })
-    .catch(function(error) {
-      console.log(error);
+  function fetchAchievements() {
+    return new Promise((resolve, reject) => {
+      Promise.all([
+          TYPE_CLAIM_X_TOWERS.promise,
+          TYPE_BUILD_X_TOWERS.promise,
+          TYPE_HALL_OF_FAME.promise,
+          TYPE_FULL_MOON.promise,
+          TYPE_VISITOR_X.promise
+        ])
+        .then((values) => resolve(_.flatten(values)))
+        .catch((error) => reject(error));
     });
+  }
+
+  fetchAchievements()
+    .then((response) => {
+      runQuery(response);
+      res.json(response);
+    })
+    .catch((error) => console.log(error));
 
 });
 

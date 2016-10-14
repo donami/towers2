@@ -22,11 +22,13 @@ class AchievementController {
   refresh() {
     this.state.loading = true;
 
+    let earnedCount = this.achievements.filter((obj) => obj.createdAt !== null).length;
+
     this.AchievementFactory.refresh()
       .then((response) => {
         this.state.loading = false;
 
-        if (response.data.length > this.achievements.length) {
+        if (response.data.length > earnedCount) {
           this.toastr.success('You have earned new achievements', 'Congratulations!');
         }
 
