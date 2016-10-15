@@ -8,20 +8,20 @@ module.exports = {
   entry: {},
   module: {
     loaders: [
-       { test: /\.js$/, exclude: [/app\/lib/, /node_modules/], loader: 'ng-annotate!babel' },
-       { test: /\.html$/, loader: 'raw' },
-       {
-         test: /\.woff($|\?)|\.woff2($|\?)|\.ttf($|\?)|\.eot($|\?)|\.svg($|\?)/,
-         loader: 'url-loader'
-       },
-       { test: /\.css$/, loader: 'style!css' },
-       { test: /\.png/, loader: "url-loader?limit=100000&minetype=image/png" },
-       { test: /\.jpg/, loader: "file-loader" },
-       {
-           test: /\.scss$/,
-           loader: ExtractTextPlugin.extract('css!sass')
-       }
-    ]
+      { test: /\.js$/, exclude: [/app\/lib/, /node_modules/], loader: 'ng-annotate!babel' },
+      { test: /\.html$/, loader: 'raw' },
+      {
+        test: /\.woff($|\?)|\.woff2($|\?)|\.ttf($|\?)|\.eot($|\?)|\.svg($|\?)/,
+        loader: 'url-loader'
+      },
+      { test: /\.css$/, loader: 'style!css' },
+      { test: /\.png/, loader: "url-loader?limit=100000&minetype=image/png" },
+      { test: /\.jpg/, loader: "file-loader" },
+      {
+        test: /\.scss$/,
+        loader: ExtractTextPlugin.extract('css!sass')
+      },
+    ],
   },
   plugins: [
     new HtmlWebpackPlugin({

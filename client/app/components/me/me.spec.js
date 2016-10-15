@@ -1,4 +1,6 @@
 import MeModule from './me';
+var sinon = require('sinon');
+
 
 describe('Me', () => {
   let $rootScope, $state, $location, $componentController, $compile, $httpBackend;
@@ -25,12 +27,33 @@ describe('Me', () => {
   });
 
   describe('Controller', () => {
-    let controller;
+    let controller, apiService, deferred, deferredtwo, q, scope;
+
+
+    beforeEach(inject(($q) => {
+      q = $q;
+
+      scope = $rootScope.$new();
+      apiService = {
+        getClaims: function() {
+          deferred = $q.defer();
+          return deferred.promise;
+        },
+        getLatestClaimedTower: function() {
+          deferredtwo = $q.defer();
+          return deferredtwo.promise;
+        }
+      };
+
+      controller = $componentController('me', {
+        $scope: scope,
+        MeFactory: apiService
+      });
+    }));
 
     beforeEach(() => {
-      controller = $componentController('me', {
-        $scope: $rootScope.$new(),
-      });
+      $httpBackend.whenGET('/api/tower/all').respond([]);
+      $httpBackend.expectGET('/api/tower/all');
     });
 
     it('has a claimedTowers property', () => {
@@ -39,6 +62,43 @@ describe('Me', () => {
 
     it('has a state property', () => {
       expect(controller).to.have.property('state');
+    });
+
+    it('should call getClaims on MeFactory', () => {
+      let spy = sinon.spy(controller.MeFactory, 'getClaims');
+      controller.init();
+      expect(spy.called).to.be.true;
+    });
+
+    it('should call getLatestClaimedTower on MeFactory', () => {
+      let spy = sinon.spy(controller.MeFactory, 'getLatestClaimedTower');
+      controller.init();
+      expect(spy.called).to.be.true;
+    });
+
+    it('should update claimedTowers property', () => {
+      deferred.resolve({
+        data: [
+          {"tower_id":"70","formatted_address":"Blasius Königsgatan 31, 372 35 Ronneby, Sweden","claimed_on":"2015-10-23T16:03:57Z","geld_collected":"23.300000","geld_bonus":"0.520000"},
+          {"tower_id":"30","formatted_address":"Serpentinvägen 21, 372 31 Ronneby, Sweden","claimed_on":"2015-10-24T05:53:01Z","geld_collected":"48.740000","geld_bonus":"0.000000"},
+          {"tower_id":"88","formatted_address":"Stationsgatan 3, 681 30 Kristinehamn, Sweden","claimed_on":"2015-10-24T12:52:40Z","geld_collected":"276.770000","geld_bonus":"0.350000"}
+        ]
+      });
+
+      scope.$root.$digest();
+      $httpBackend.flush();
+
+      expect(controller.claimedTowers).not.to.be.empty;
+    });
+
+    it('should expect claimedTowers to be empty if no towers are claimed', () => {
+      deferred.resolve({
+        data: []
+      });
+
+      scope.$root.$digest();
+
+      expect(controller.claimedTowers).to.be.empty;
     });
 
   });
@@ -51,8 +111,6 @@ describe('Me', () => {
       $httpBackend.expectGET('/api/me');
       $httpBackend.whenGET('/api/me/latest-claim').respond([]);
       $httpBackend.expectGET('/api/me/latest-claim');
-      $httpBackend.whenGET('/api/tower/all').respond([]);
-      $httpBackend.expectGET('/api/tower/all');
 
       scope = $rootScope.$new();
       template = $compile('<me></me>')(scope);
