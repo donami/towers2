@@ -78,6 +78,25 @@ angular.module('app', [
     })
   })
 
+  .factory('errorInterceptor', ($q, ErrorFactory) => {
+    'ngInject';
+
+    let errorInterceptor = {
+      responseError: (response) => {
+        if (response.status === 404) {
+          ErrorFactory.addErrorMessage(response.data);
+        }
+        return $q.reject(response.data);
+      }
+    };
+    return errorInterceptor;
+  })
+
+  .config(($httpProvider) => {
+    'ngInject';
+    $httpProvider.interceptors.push('errorInterceptor');
+  })
+
   .config((CacheFactoryProvider) => {
     'ngInject';
 

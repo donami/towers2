@@ -1,9 +1,13 @@
 import angular from 'angular';
 import uiRouter from 'angular-ui-router';
 import towerComponent from './tower.component';
+import Services from '../../services/services';
+import ngCache from 'angular-cache';
 
 let towerModule = angular.module('tower', [
-  uiRouter
+  uiRouter,
+  Services,
+  ngCache
 ])
 
 .config(($stateProvider) => {

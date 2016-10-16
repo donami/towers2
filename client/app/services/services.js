@@ -6,6 +6,7 @@ import AchievementFactory from './achievement.factory';
 import MoonFactory from './moon.factory';
 import DataFactory from './data.factory';
 import DataCache from './datacache.factory';
+import ErrorFactory from './error.factory';
 import AuthService from './auth.service';
 import MapService from './map.service';
 import DateService from './date.service';
@@ -21,6 +22,7 @@ export default angular
   .factory('DataFactory', ['TowerFactory', '$q', (TowerFactory, $q) => new DataFactory(TowerFactory, $q)])
   .factory('AchievementFactory', ['$http', ($http) => new AchievementFactory($http)])
   .factory('DataCache', ['CacheFactory', (CacheFactory) => new DataCache(CacheFactory)])
+  .factory('ErrorFactory', ErrorFactory)
   .service('AuthService', AuthService)
   .service('DateService', DateService)
   .service('MapService', MapService)

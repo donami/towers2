@@ -1,0 +1,399 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for webpack/client/app/components/leaderboard/leaderboard.controller.js</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../../../../prettify.css" />
+    <link rel="stylesheet" href="../../../../../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../../../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../../../../../index.html">all files</a> / <a href="index.html">webpack/client/app/components/leaderboard/</a> leaderboard.controller.js
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">90.41% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>66/73</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">75% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>15/20</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">85.71% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>18/21</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">87.72% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>50/57</span>
+      </div>
+      <div class='fl pad1y'>
+        <span class="strong">2 functions, 1 branch</span>
+        <span class="quiet">Ignored</span>  &nbsp;&nbsp;&nbsp;&nbsp;
+      </div>
+    </div>
+  </div>
+  <div class='status-line high'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">9×</span>
+<span class="cline-any cline-yes">9×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">9×</span>
+<span class="cline-any cline-yes">9×</span>
+<span class="cline-any cline-yes">9×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">9×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">9×</span>
+<span class="cline-any cline-yes">9×</span>
+<span class="cline-any cline-yes">9×</span>
+<span class="cline-any cline-yes">9×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">34×</span>
+<span class="cline-any cline-yes">9×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">9×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">12×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">40×</span>
+<span class="cline-any cline-yes">40×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">63×</span>
+<span class="cline-any cline-yes">63×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5×</span>
+<span class="cline-any cline-yes">5×</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">class LeaderboardController {
+  constructor($scope, TowerFactory, MoonFactory, $state, toastr) {
+    'ngInject';
+&nbsp;
+    this.TowerFactory = TowerFactory;
+    this.MoonFactory = MoonFactory;
+    this.toastr = toastr;
+&nbsp;
+    this.state = {
+      view: $state.current.name,
+    };
+    this.leaderboard = [];
+    this.selectedNewMoon = {};
+    this.orderBy = 'claim_count';
+    this.reverseOrder = false;
+&nbsp;
+    $scope.$watch(() =&gt; $state.current.name, (newValue) =&gt; {
+      this.state.view = newValue;
+&nbsp;
+      this.init();
+    });
+  }
+&nbsp;
+  init() {
+    switch (this.state.view) {
+      case 'leaderboard.new-moons':
+        this.loadNewMoons();
+        this.getLeaderboardMoons();
+        break;
+&nbsp;
+      case 'leaderboard.main':
+        this.getLeaderboard();
+        break;
+    }
+  }
+&nbsp;
+  setSort(property, asFloat) {
+<span class="cstat-no" title="statement not covered" >    t</span>his.sort(property, asFloat);
+  }
+&nbsp;
+  sort(property, asFloat) {
+    <span class="missing-if-branch" title="else path not taken" >E</span>if (property == this.orderBy) this.reverseOrder = !this.reverseOrder;
+&nbsp;
+    // Parse as float if needed
+    <span class="missing-if-branch" title="else path not taken" >E</span>if (asFloat) {
+      this.leaderboard.map(function(obj) {
+        obj[property] = parseFloat(obj[property]);
+        return obj;
+      });
+    }
+&nbsp;
+    this.orderBy = property;
+  }
+&nbsp;
+  getLeaderboard() {
+    this.TowerFactory.getLeaderboard()
+      .then((response) =&gt; this.leaderboard = response.data)
+      .then(() =&gt; this.sort(this.orderBy, true))
+      .catch(<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >e</span></span>rror =&gt; console.log(error));
+  }
+&nbsp;
+  loadNewMoons() {
+    this.MoonFactory.getNewMoons()
+      .then((response) =&gt; {
+        let today = new Date();
+        let date;
+        let minimumDate = new Date('2015-08-15');            // Only get new moons after this date
+        let newMoons = response.data.filter(function(obj) {
+          date = new Date(obj.iso8601);
+          return today &gt; date &amp;&amp; date &gt; minimumDate;
+        });
+&nbsp;
+        this.newMoons = newMoons;
+      })
+      .catch(<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >e</span></span>rror =&gt; console.log(error));
+  }
+&nbsp;
+  getLeaderboardMoons(date) {
+    if (!date) {
+      this.leaderboard = [];
+      return false;
+    }
+&nbsp;
+    return this.TowerFactory.getLeaderboardMoons(date)
+      .then((response) =&gt; {
+        if (response.data.response) {
+          <span class="missing-if-branch" title="else path not taken" >E</span>if (response.data.response.statusCode == 404) {
+            this.state.error = response.data.response.body.error;
+            this.toastr.error(response.data.response.body.error.message);
+            this.leaderboard = [];
+          }
+          else <span class="cstat-no" title="statement not covered" >r</span>eturn Promise.reject(response);
+        }
+        else {
+          this.leaderboard = response.data;
+        }
+      })
+      .catch(<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >e</span></span>rror =&gt; console.log(error));
+  }
+&nbsp;
+  selectNewMoon() {
+<span class="cstat-no" title="statement not covered" >    if (this.selectedNewMoon) {</span>
+<span class="cstat-no" title="statement not covered" >      t</span>his.getLeaderboardMoons(this.selectedNewMoon.iso8601);
+    }
+  }
+&nbsp;
+}
+&nbsp;
+export default LeaderboardController;
+&nbsp;
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Sat Oct 15 2016 23:25:02 GMT+0200 (CEST)
+</div>
+</div>
+<script src="../../../../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../../../../sorter.js"></script>
+</body>
+</html>

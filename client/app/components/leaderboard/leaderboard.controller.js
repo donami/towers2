@@ -81,7 +81,7 @@ class LeaderboardController {
       return false;
     }
 
-    this.TowerFactory.getLeaderboardMoons(date)
+    return this.TowerFactory.getLeaderboardMoons(date)
       .then((response) => {
         if (response.data.response) {
           if (response.data.response.statusCode == 404) {
@@ -89,6 +89,7 @@ class LeaderboardController {
             this.toastr.error(response.data.response.body.error.message);
             this.leaderboard = [];
           }
+          else return Promise.reject(response);
         }
         else {
           this.leaderboard = response.data;

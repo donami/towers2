@@ -5,7 +5,7 @@ module.exports = function (config) {
 
     // frameworks to use
     // available frameworks: https://npmjs.org/browse/keyword/karma-adapter
-    frameworks: ['mocha', 'chai'],
+    frameworks: ['mocha', 'chai-as-promised', 'chai'],
 
     // list of files/patterns to load in the browser
     files: [
@@ -19,12 +19,14 @@ module.exports = function (config) {
 
     plugins: [
       require("karma-chai"),
+      require("karma-chai-as-promised"),
       require("karma-chrome-launcher"),
       require("karma-mocha"),
       require("karma-mocha-reporter"),
       require("karma-sourcemap-loader"),
       require("karma-webpack"),
-      require('karma-ng-html2js-preprocessor')
+      require('karma-ng-html2js-preprocessor'),
+      require('karma-coverage')
     ],
 
     // preprocess matching files before serving them to the browser
@@ -49,6 +51,11 @@ module.exports = function (config) {
       module: {
         loaders: [
           { test: /\.js/, exclude: [/app\/lib/, /node_modules/], loader: 'babel' },
+          {
+            test: /\.js$/,
+            loaders: ['isparta'],
+            exclude: /node_modules|\.spec.js$|\.test.js$|\.mock\.js$/ // exclude node_modules and test files
+          },
           { test: /\.html/, loader: 'raw' },
           { test: /\.styl$/, loader: 'style!css!stylus' },
           { test: /\.css$/, loader: 'style!css' }
@@ -61,7 +68,15 @@ module.exports = function (config) {
     },
 
     // available reporters: https://npmjs.org/browse/keyword/karma-reporter
-    reporters: ['mocha'],
+    reporters: ['mocha', 'coverage'],
+
+    coverageReporter: {
+      reporters: [
+        {type: 'lcov', dir: 'coverage/', subdir: '.'},
+        {type: 'json', dir: 'coverage/', subdir: '.'},
+        {type: 'text-summary'}
+      ]
+    },
 
     // web server port
     port: 9876,
@@ -74,13 +89,13 @@ module.exports = function (config) {
     logLevel: config.LOG_INFO,
 
     // toggle whether to watch files and rerun tests upon incurring changes
-    autoWatch: false,
+    autoWatch: true,
 
     // start these browsers
     // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
     browsers: ['Chrome'],
 
     // if true, Karma runs tests once and exits
-    singleRun: true
+    singleRun: false
   });
 };

@@ -8,14 +8,23 @@ describe('Me', () => {
   beforeEach(window.module(MeModule));
   beforeEach(window.module('templates'));
 
+  beforeEach(() => {
+    localStorage.clear();
+  });
+
   beforeEach(inject(($injector) => {
+    $httpBackend = $injector.get('$httpBackend');
     $rootScope = $injector.get('$rootScope');
     $componentController = $injector.get('$componentController');
     $state = $injector.get('$state');
     $location = $injector.get('$location');
     $compile = $injector.get('$compile');
-    $httpBackend = $injector.get('$httpBackend');
   }));
+
+  afterEach(function() {
+    $httpBackend.verifyNoOutstandingExpectation();
+    $httpBackend.verifyNoOutstandingRequest();
+  });
 
   describe('Module', () => {
     it('state name to be me.main', () => {
@@ -28,7 +37,6 @@ describe('Me', () => {
 
   describe('Controller', () => {
     let controller, apiService, deferred, deferredtwo, q, scope;
-
 
     beforeEach(inject(($q) => {
       q = $q;
@@ -53,7 +61,8 @@ describe('Me', () => {
 
     beforeEach(() => {
       $httpBackend.whenGET('/api/tower/all').respond([]);
-      $httpBackend.expectGET('/api/tower/all');
+      // $httpBackend.expectGET('/api/tower/all');
+
     });
 
     it('has a claimedTowers property', () => {
@@ -108,9 +117,9 @@ describe('Me', () => {
 
     beforeEach(() => {
       $httpBackend.whenGET('/api/me').respond([]);
-      $httpBackend.expectGET('/api/me');
+      // $httpBackend.expectGET('/api/me');
       $httpBackend.whenGET('/api/me/latest-claim').respond([]);
-      $httpBackend.expectGET('/api/me/latest-claim');
+      // $httpBackend.expectGET('/api/me/latest-claim');
 
       scope = $rootScope.$new();
       template = $compile('<me></me>')(scope);

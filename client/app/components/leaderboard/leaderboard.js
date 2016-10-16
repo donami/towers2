@@ -1,9 +1,15 @@
 import angular from 'angular';
 import uiRouter from 'angular-ui-router';
 import leaderboardComponent from './leaderboard.component';
+import Services from '../../services/services';
+import ngCache from 'angular-cache';
+import toastr from 'angular-toastr';
 
 let leaderboardModule = angular.module('leaderboard', [
-  uiRouter
+  uiRouter,
+  ngCache,
+  toastr,
+  Services
 ])
 
 .config(($stateProvider) => {
