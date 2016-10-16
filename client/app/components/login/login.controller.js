@@ -1,5 +1,5 @@
 class LoginController {
-  constructor($cookies, $state, AuthService, toastr) {
+  constructor($cookies, $state, AuthService, toastr, $location) {
     'ngInject';
 
     this.$cookies = $cookies;
@@ -7,8 +7,13 @@ class LoginController {
     this.AuthService = AuthService;
     this.toastr = toastr;
 
-    if (AuthService.authed) {
-      $state.go('me');
+    this.redirectIfAuthed();
+  }
+
+  redirectIfAuthed() {
+    if (this.AuthService.getAuthed()) {
+      console.log('SHOULD REDIRECT');
+      this.$state.go('me');
     }
   }
 
@@ -17,9 +22,13 @@ class LoginController {
 
     this.AuthService.auth(userApiKey)
       .then((response) => {
+        if (!response.data.playerId) {
+          return Promise.reject('No player id found');
+        }
+
         this.toastr.clear();
         this.$cookies.put('userApiKey', userApiKey);
-        this.$cookies.put('userPlayerId', 'tN5p7SSvzb30fIRtA6tp2aQn0Y9YTOZQ4k3MFjw3t/I='); // TODO: should not be hardcoded
+        this.$cookies.put('userPlayerId', response.data.playerId);
         this.AuthService.setAuthed(true);
 
         this.toastr.success('You are now logged in', 'Success');

@@ -14,7 +14,11 @@ class AchievementController {
   }
 
   init() {
-    this.AchievementFactory.getAchievements()
+    this.getAchievements();
+  }
+
+  getAchievements() {
+    return this.AchievementFactory.getAchievements()
       .then(response => this.achievements = response.data)
       .catch(error => console.log(error));
   }

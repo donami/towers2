@@ -34,7 +34,7 @@ angular.module('app', [
     Components,
     Filters,
     Services,
-    Directives.name
+    Directives
   ])
   .config(($locationProvider) => {
     "ngInject";

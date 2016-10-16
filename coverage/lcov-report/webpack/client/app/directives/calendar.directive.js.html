@@ -1,0 +1,407 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for webpack/client/app/directives/calendar.directive.js</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../../../prettify.css" />
+    <link rel="stylesheet" href="../../../../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../../../../index.html">all files</a> / <a href="index.html">webpack/client/app/directives/</a> calendar.directive.js
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">29.58% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>21/71</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">50% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>4/8</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">4.76% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>1/21</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">21.67% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>13/60</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line low'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115</td><td class="line-coverage quiet"><span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import moment from 'moment';
+import 'moment-range';
+import template from './templates/calendar.html';
+&nbsp;
+CalendarController.$inject = ['$scope', 'MeFactory', 'MoonFactory'];
+<span class="fstat-no" title="function not covered" >function CalendarController($scope, MeFactory, MoonFactory) {</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  v</span>ar vm = this;
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  v</span>m.currDate = moment();
+<span class="cstat-no" title="statement not covered" >  v</span>m.startDate = null;
+<span class="cstat-no" title="statement not covered" >  v</span>m.endDate = null;
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  v</span>m.prevMonth = prevMonth;
+<span class="cstat-no" title="statement not covered" >  v</span>m.nextMonth = nextMonth;
+<span class="cstat-no" title="statement not covered" >  v</span>m.range = range;
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  i</span>nitCalendar();
+&nbsp;
+<span class="fstat-no" title="function not covered" >  function getDaysInMonth(startDate) {</span>
+<span class="cstat-no" title="statement not covered" >    v</span>m.startDate = new Date(startDate.startOf('month'));
+<span class="cstat-no" title="statement not covered" >    v</span>m.endDate   = new Date(startDate.endOf('month'));
+<span class="cstat-no" title="statement not covered" >    l</span>et range = moment.range(vm.startDate, vm.endDate);
+<span class="cstat-no" title="statement not covered" >    l</span>et days = [];
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    r</span>ange.by('days', <span class="fstat-no" title="function not covered" >function(moment) {</span>
+<span class="cstat-no" title="statement not covered" >      d</span>ays.push({
+        date: moment,
+        claims: [],
+        geld_collected: 0,
+        geld_bonus: 0,
+        newMoon: false,
+      });
+    });
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    r</span>eturn days;
+  }
+&nbsp;
+<span class="fstat-no" title="function not covered" >  function range(n) {</span>
+<span class="cstat-no" title="statement not covered" >    r</span>eturn new Array(n);
+  }
+&nbsp;
+<span class="fstat-no" title="function not covered" >  function prevMonth() {</span>
+<span class="cstat-no" title="statement not covered" >    v</span>m.currDate = moment(vm.currDate).subtract(1, 'months');
+<span class="cstat-no" title="statement not covered" >    i</span>nitCalendar();
+  }
+&nbsp;
+<span class="fstat-no" title="function not covered" >  function nextMonth() {</span>
+<span class="cstat-no" title="statement not covered" >    v</span>m.currDate = moment(vm.currDate).add(1, 'months');
+<span class="cstat-no" title="statement not covered" >    i</span>nitCalendar();
+  }
+&nbsp;
+<span class="fstat-no" title="function not covered" >  function initCalendar() {</span>
+<span class="cstat-no" title="statement not covered" >    v</span>m.days = getDaysInMonth(vm.currDate);
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    M</span>eFactory.getClaims(vm.startDate, vm.endDate)
+      .then(<span class="fstat-no" title="function not covered" >function(response) {</span>
+<span class="cstat-no" title="statement not covered" >        h</span>andleData(response.data);
+      })
+      .catch(<span class="fstat-no" title="function not covered" >function(error) {</span>
+<span class="cstat-no" title="statement not covered" >        c</span>onsole.log(error);
+      });
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    M</span>oonFactory.getNewMoons()
+      .then(<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >(</span></span>response) =&gt; handleNewMoons(response.data))
+      .catch(<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >(</span></span>error) =&gt; console.log(error));
+  }
+&nbsp;
+  // Handle the claims and attatch it to the calendar day
+<span class="fstat-no" title="function not covered" >  function handleData(data) {</span>
+<span class="cstat-no" title="statement not covered" >    v</span>m.days.map(<span class="fstat-no" title="function not covered" >(day) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >      l</span>et claims = data.filter(<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >(</span></span>obj) =&gt; moment(obj.claimed_on).format('YYYY-MM-DD') == day.date.format('YYYY-MM-DD'));
+&nbsp;
+<span class="cstat-no" title="statement not covered" >      if (claims.length) {</span>
+<span class="cstat-no" title="statement not covered" >        d</span>ay.claims = day.claims.concat(claims);
+&nbsp;
+        // Add this days geld collected to total for day
+<span class="cstat-no" title="statement not covered" >        c</span>laims.forEach(<span class="fstat-no" title="function not covered" >obj =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >          d</span>ay.geld_collected += parseInt(obj.geld_collected);
+<span class="cstat-no" title="statement not covered" >          d</span>ay.geld_bonus += parseInt(obj.geld_bonus);
+        });
+      }
+    });
+  }
+&nbsp;
+<span class="fstat-no" title="function not covered" >  function handleNewMoons(data) {</span>
+    // Only get new moons for the next three years
+<span class="cstat-no" title="statement not covered" >    l</span>et maxDate = moment().add(3, 'years');
+<span class="cstat-no" title="statement not covered" >    d</span>ata = data.filter(<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >(</span></span>obj) =&gt; new Date(obj.iso8601) &lt; maxDate);
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    v</span>m.days.map(<span class="fstat-no" title="function not covered" >(day) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >      l</span>et newMoon = data.find(<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >(</span></span>obj) =&gt; moment(obj.iso8601).format('YYYY-MM-DD') == day.date.format('YYYY-MM-DD'));
+&nbsp;
+<span class="cstat-no" title="statement not covered" >      if (newMoon) {</span>
+<span class="cstat-no" title="statement not covered" >        d</span>ay.newMoon = newMoon;
+      }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >      r</span>eturn day;
+    });
+&nbsp;
+  }
+&nbsp;
+}
+&nbsp;
+export default class calendar {
+<span class="fstat-no" title="function not covered" >  constructor() <span class="cstat-no" title="statement not covered" >{</span></span>
+<span class="cstat-no" title="statement not covered" >    t</span>his.restrict = 'AE';
+<span class="cstat-no" title="statement not covered" >    t</span>his.template = template;
+<span class="cstat-no" title="statement not covered" >    t</span>his.controller = CalendarController;
+<span class="cstat-no" title="statement not covered" >    t</span>his.controllerAs = 'vm';
+<span class="cstat-no" title="statement not covered" >    t</span>his.bindToController = true;
+  }
+}
+&nbsp;
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Sun Oct 16 2016 21:46:35 GMT+0200 (CEST)
+</div>
+</div>
+<script src="../../../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../../../sorter.js"></script>
+</body>
+</html>

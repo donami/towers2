@@ -11,23 +11,9 @@ var leaderboardRoutes = require('./leaderboard');
 var hallOfFameRoutes = require('./halloffame');
 var newMoonsRoutes = require('./newMoons');
 
-router.get('/user-info/:key', function(req, res) {
-  var options = {
-    uri: api.API_ME + '?apiKey=' + req.params.key,
-    json: true,
-  };
-
-  request(options)
-    .then(function(data) {
-      return res.json(data);
-    }, function(error) {
-      return res.json(error);
-    });
-});
-
 router.get('/verify-key/:key', function(req, res) {
   var options = {
-    uri: api.API_PERSONAL + '?apiKey=' + req.params.key + '&start=2000-01-01&end=2020-01-01',
+    uri: api.API_ME + '?apiKey=' + req.params.key,
     json: true,
   };
 

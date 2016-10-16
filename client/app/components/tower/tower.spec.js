@@ -4,7 +4,7 @@ describe('Tower', () => {
   let $rootScope, $state, $location, $componentController, $compile, $httpBackend, $q, deferred, fakeTowerFactory, fakeMeFactory;
 
   beforeEach(window.module(TowerModule));
-  beforeEach(window.module('templates'));
+  // beforeEach(window.module('templates'));
 
   beforeEach(inject(($injector) => {
     $rootScope = $injector.get('$rootScope');

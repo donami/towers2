@@ -1,4 +1,4 @@
-const API_PERSONAL = '/api/verify-key/';
+const API_VERIFY_KEY = '/api/verify-key/';
 
 class AuthService {
 
@@ -26,7 +26,7 @@ class AuthService {
   }
 
   auth(apiKey) {
-    return this.$http.get(API_PERSONAL + apiKey);
+    return this.$http.get(API_VERIFY_KEY + apiKey);
   }
 }
 

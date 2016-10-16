@@ -6,7 +6,7 @@ describe('Leaderboard', () => {
   let $rootScope, $state, $location, $componentController, $compile, $httpBackend;
 
   beforeEach(window.module(LeaderboardModule));
-  beforeEach(window.module('templates'));
+  // beforeEach(window.module('templates'));
 
   beforeEach(() => {
     localStorage.clear();

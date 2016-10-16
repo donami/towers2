@@ -6,7 +6,7 @@ describe('Me', () => {
   let $rootScope, $state, $location, $componentController, $compile, $httpBackend;
 
   beforeEach(window.module(MeModule));
-  beforeEach(window.module('templates'));
+  // beforeEach(window.module('templates'));
 
   beforeEach(() => {
     localStorage.clear();

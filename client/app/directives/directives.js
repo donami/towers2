@@ -13,6 +13,8 @@ var module = angular.module('app.directives', [])
   .directive('hallOfFame', () => new HallOfFameDirective())
   .directive('medal', () => new MedalDirective())
   .directive('popup', () => new PopupDirective())
-  .directive('spinner', () => new SpinnerDirective());
+  .directive('spinner', () => new SpinnerDirective())
+
+.name;
 
 export default module;

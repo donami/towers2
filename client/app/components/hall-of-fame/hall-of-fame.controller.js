@@ -3,6 +3,7 @@ class HallOfFameController {
     'ngInject';
 
     this.TowerFactory = TowerFactory;
+    this.countries = [];
 
     this.init();
   }

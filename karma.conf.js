@@ -33,18 +33,18 @@ module.exports = function (config) {
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
     preprocessors: {
       'spec.bundle.js': ['webpack', 'sourcemap'],
-      "client/app/components/**/*.html": ["ng-html2js"]
+      // "client/app/components/**/*.html": ["ng-html2js"]
     },
 
-    ngHtml2JsPreprocessor: {
-        // If your build process changes the path to your templates,
-        // use stripPrefix and prependPrefix to adjust it.
-        stripPrefix: "client/",
-        // prependPrefix: "client/",
-
-        // the name of the Angular module to create
-        moduleName: "templates"
-    },
+    // ngHtml2JsPreprocessor: {
+    //     // If your build process changes the path to your templates,
+    //     // use stripPrefix and prependPrefix to adjust it.
+    //     stripPrefix: "client/",
+    //     // prependPrefix: "client/",
+    //
+    //     // the name of the Angular module to create
+    //     moduleName: "templates"
+    // },
 
     webpack: {
       devtool: 'inline-source-map',

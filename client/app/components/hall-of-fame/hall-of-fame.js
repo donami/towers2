@@ -1,9 +1,11 @@
 import angular from 'angular';
 import uiRouter from 'angular-ui-router';
 import hallOfFameComponent from './hall-of-fame.component';
+import Directives from '../../directives/directives';
 
 let hallOfFameModule = angular.module('hallOfFame', [
-  uiRouter
+  uiRouter,
+  Directives,
 ])
 
 .config(($stateProvider) => {
