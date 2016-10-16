@@ -4,6 +4,8 @@ import leaderboardComponent from './leaderboard.component';
 import Services from '../../services/services';
 import ngCache from 'angular-cache';
 import toastr from 'angular-toastr';
+import TemplateMain from './views/leaderboard.main.html';
+import TemplateNewMoons from './views/leaderboard.new-moons.html';
 
 let leaderboardModule = angular.module('leaderboard', [
   uiRouter,
@@ -22,11 +24,11 @@ let leaderboardModule = angular.module('leaderboard', [
     })
     .state('leaderboard.main', {
       url: '/',
-      templateUrl: 'app/components/leaderboard/views/leaderboard.main.html',
+      template: TemplateMain,
     })
     .state('leaderboard.new-moons', {
       url: '/new-moons',
-      templateUrl: 'app/components/leaderboard/views/leaderboard.new-moons.html',
+      template: TemplateNewMoons,
     });
 })
 

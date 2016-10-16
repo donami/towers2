@@ -1,8 +1,10 @@
+import template from './templates/graph.html';
+
 class Graph {
   constructor($compile) {
     this.restrict = 'AE';
     this.replace = 'true';
-    this.templateUrl = 'app/directives/templates/graph.html';
+    this.template = template;
     this.scope = {
       type: '=',
       data: '=',

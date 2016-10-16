@@ -1,5 +1,6 @@
 import moment from 'moment';
 import 'moment-range';
+import template from './templates/calendar.html';
 
 CalendarController.$inject = ['$scope', 'MeFactory', 'MoonFactory'];
 function CalendarController($scope, MeFactory, MoonFactory) {
@@ -104,7 +105,7 @@ function CalendarController($scope, MeFactory, MoonFactory) {
 export default class calendar {
   constructor() {
     this.restrict = 'AE';
-    this.templateUrl = 'app/directives/templates/calendar.html';
+    this.template = template;
     this.controller = CalendarController;
     this.controllerAs = 'vm';
     this.bindToController = true;

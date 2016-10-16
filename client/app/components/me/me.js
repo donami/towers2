@@ -6,6 +6,9 @@ import 'angular-cache';
 import 'angular-translate';
 import Services from './../../services/services';
 import Filters from './../../filters/filters';
+import TemplateMain from './views/me.main.html';
+import TemplateCalendar from './views/me.calendar.html';
+import TemplateGraph from './views/me.graphs.html';
 
 let meModule = angular.module('me', [
   uiRouter,
@@ -26,15 +29,15 @@ let meModule = angular.module('me', [
     })
     .state('me.main', {
       url: '',
-      templateUrl: 'app/components/me/views/me.main.html',
+      template: TemplateMain,
     })
     .state('me.calendar', {
       url: 'me/calendar',
-      templateUrl: 'app/components/me/views/me.calendar.html',
+      template: TemplateCalendar,
     })
     .state('me.graphs', {
       url: 'me/graphs',
-      templateUrl: 'app/components/me/views/me.graphs.html',
+      template: TemplateGraph,
     });
 })
 

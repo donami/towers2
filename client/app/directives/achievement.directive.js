@@ -1,7 +1,9 @@
+import template from './templates/achievement.html';
+
 class Achievement {
   constructor() {
     this.link = this.linkFunc;
-    this.templateUrl = 'app/directives/templates/achievement.html';
+    this.template = template;
     this.restrict = 'AE';
     this.scope = {
       data: '='

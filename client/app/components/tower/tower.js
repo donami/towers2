@@ -3,6 +3,8 @@ import uiRouter from 'angular-ui-router';
 import towerComponent from './tower.component';
 import Services from '../../services/services';
 import ngCache from 'angular-cache';
+import TemplateMain from './views/tower.main.html';
+import TemplateLog from './views/tower.log.html';
 
 let towerModule = angular.module('tower', [
   uiRouter,
@@ -20,11 +22,11 @@ let towerModule = angular.module('tower', [
     })
     .state('tower.main', {
       url: '/',
-      templateUrl: 'app/components/tower/views/tower.main.html',
+      template: TemplateMain,
     })
     .state('tower.log', {
       url: '/log',
-      templateUrl: 'app/components/tower/views/tower.log.html',
+      template: TemplateLog,
     })
 })
 

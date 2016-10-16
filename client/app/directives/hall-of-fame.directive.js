@@ -1,10 +1,12 @@
+import template from './templates/hall-of-fame.html';
+
 class HallOfFame {
   constructor() {
     'ngInject';
 
     this.restrict = 'AE';
     this.replace = 'true';
-    this.templateUrl = 'app/directives/templates/hall-of-fame.html';
+    this.template = template;
   }
 }
 
