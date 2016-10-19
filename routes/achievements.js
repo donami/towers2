@@ -107,6 +107,48 @@ router.get('/refresh', function(req, res) {
     value: 20,
     achieved: false,
   };
+  const CHALLENGER_10 = {
+    id: 'CHALLENGER_10',
+    title: 'Challenger 10',
+    value: 10,
+    achieved: false,
+  };
+  const CHALLENGER_20 = {
+    id: 'CHALLENGER_20',
+    title: 'Challenger 20',
+    value: 20,
+    achieved: false,
+  };
+  const CHALLENGER_30 = {
+    id: 'CHALLENGER_30',
+    title: 'Challenger 30',
+    value: 30,
+    achieved: false,
+  };
+
+  // Check if user has earned achievement for claiming X amount of towers from other players
+  const TYPE_CHALLENGER_X = new (function() {
+    this.values = [CHALLENGER_10, CHALLENGER_20, CHALLENGER_30];
+    this.check = function(data) {
+
+      data = data.filter((obj) => obj.previous_player_id !== playerId && obj.previous_player_id !== '');
+      var claimCount = data.length;
+
+      this.values.map((obj) => {
+        if (obj.value <= claimCount) {
+          obj.achieved = true;
+        }
+        return obj;
+      });
+
+      return this.values;
+    };
+    this.promise = new Promise((resolve, reject) => {
+      request({ uri: api.API_PERSONAL + '?apiKey=' + req.cookies.userApiKey + '&start=' + API_MIN_DATE + '&end=' + API_MAX_DATE, json: true })
+        .then((response) => resolve(this.check(response)))
+        .catch((error) => reject(error));
+    });
+  });
 
   // Check if user has earned achievement for claiming a tower for X days in a row
   const TYPE_STREAK_X = new (function() {
@@ -335,7 +377,8 @@ router.get('/refresh', function(req, res) {
           TYPE_HALL_OF_FAME.promise,
           TYPE_FULL_MOON.promise,
           TYPE_VISITOR_X.promise,
-          TYPE_STREAK_X.promise
+          TYPE_STREAK_X.promise,
+          TYPE_CHALLENGER_X.promise,
         ])
         .then((values) => resolve(_.flatten(values)))
         .catch((error) => reject(error));
