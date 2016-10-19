@@ -30,9 +30,8 @@ class TowerController {
         this.state.loading = false;
         this.tower = response.data;
 
-        return this.MapService.getMap(this.tower.formatted_address);
+        this.map = this.MapService.getMap(this.tower.latitude, this.tower.longitude);
       })
-      .then(response => this.map = response.map)
       .catch((error) => {
         this.state.loading = false;
 
@@ -52,7 +51,7 @@ class TowerController {
             };
           }
         }
-        
+
       });
   }
 

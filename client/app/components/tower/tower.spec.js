@@ -31,7 +31,6 @@ describe('Tower', () => {
       }
     };
 
-    $httpBackend.whenGET(/https*./).respond({"results" : [{"geometry" : {"location" : {"lat" : 56.16881009999999,"lng" : 14.8746293},},}],"status" : "OK"});
   });
 
   afterEach(function() {
@@ -78,7 +77,6 @@ describe('Tower', () => {
       deferred.resolve(response)
 
       $rootScope.$digest();
-      $httpBackend.flush();
 
       expect(controller.tower.tower_id).to.eq('1063');
     });
