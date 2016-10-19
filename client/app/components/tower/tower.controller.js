@@ -44,6 +44,15 @@ class TowerController {
             };
           }
         }
+        else if (error.message) {
+          if (error.message === 'Unable to find tower') {
+            this.error = {
+              type: 'Unable to load tower: ' + error.message,
+              message: 'This tower is missing data',
+            };
+          }
+        }
+        
       });
   }
 
