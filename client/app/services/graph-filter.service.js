@@ -115,6 +115,7 @@ class GraphFilter {
   }
 
   getGraphData() {
+    let state = this.$state;
     // Click event for graph
     var graphOnClick = function(evt) {
       var element = this.getElementsAtEvent(evt)[0];
@@ -127,7 +128,7 @@ class GraphFilter {
         return false;
 
       var link = element._chart.config.data.datasets[0][index].link;
-      this.$state.go('app.towerSingle', {id: link});
+      state.go('tower', {id: link});
     };
 
     // Default options for graph
