@@ -5,6 +5,7 @@ export default {
   '_COUNTRY': 'Country',
   '_BUILD_DATE': 'Build date',
   '_CREATOR': 'Creator',
+  '_BUILDER': 'Builder',
   '_PERSONAL_VIEW': 'Personal view',
   '_YOUR_API_KEY': 'Your api key',
   '_LATEST_CLAIMED_TOWER': 'Latest claimed tower',

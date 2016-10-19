@@ -17,6 +17,7 @@
       <td data-title="'_TOWER' | translate" filter="{tower_name: 'text'}" sortable="'name_sort'"><a ui-sref="tower({id: tower.tower_id})">{{ tower.tower_name || 'ID: ' + tower.tower_id }}</a></td>
       <td data-title="'_BUILD_DATE' | translate" filter="{created_on: 'text'}" sortable="'created_on'">{{ tower.created_on | date }}</td>
       <td data-title="'_COUNTRY' | translate" filter="{country: 'text'}" sortable="'country'">{{ tower.country }}</td>
+      <td data-title="'_BUILDER' | translate" filter="{player_alias: 'text'}" sortable="'player_alias'">{{ tower.player_alias }}</td>
       <td data-title="'_ADDRESS' | translate" filter="{formatted_address: 'text'}" sortable="'formatted_address'">{{ tower.formatted_address }}</td>
     </tr>
   </table>

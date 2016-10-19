@@ -5,6 +5,7 @@ export default {
   '_COUNTRY': 'Land',
   '_BUILD_DATE': 'Skapad',
   '_CREATOR': 'Skapad av',
+  '_BUILDER': 'Skapad av',
   '_PERSONAL_VIEW': 'Personlig sida',
   '_YOUR_API_KEY': 'Din api nyckel',
   '_LATEST_CLAIMED_TOWER': 'Senaste anspråk',
