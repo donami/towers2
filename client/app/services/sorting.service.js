@@ -4,6 +4,11 @@ class SortingService {
 
     this.sorting = {};
     this.filter = {};
+    this.page = 1;
+  }
+
+  getPage() {
+    return this.page;
   }
 
   getSorting() {
@@ -12,6 +17,10 @@ class SortingService {
 
   getFilter() {
     return this.filter;
+  }
+
+  setPage(page) {
+    this.page = page;
   }
 
   setSorting(sorting) {

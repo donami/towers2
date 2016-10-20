@@ -8,10 +8,12 @@ class TowerController {
     this.towers = new NgTableParams({
       count: 10,
       sorting: this.SortingService.getSorting(),
-      filter: this.SortingService.getFilter()
+      filter: this.SortingService.getFilter(),
+      page: this.SortingService.getPage()
     });
 
     $scope.$watch('vm.towers', (params) => {
+      this.SortingService.setPage(params.page());
       this.SortingService.setSorting(params.sorting());
       this.SortingService.setFilter(params.filter());
     }, true);
