@@ -1,10 +1,20 @@
 class TowerController {
-  constructor(TowerFactory, NgTableParams) {
+  constructor($scope, TowerFactory, NgTableParams, SortingService) {
     'ngInject';
 
     this.TowerFactory = TowerFactory;
+    this.SortingService = SortingService;
 
-    this.towers = new NgTableParams({count: 10});
+    this.towers = new NgTableParams({
+      count: 10,
+      sorting: this.SortingService.getSorting(),
+      filter: this.SortingService.getFilter()
+    });
+
+    $scope.$watch('vm.towers', (params) => {
+      this.SortingService.setSorting(params.sorting());
+      this.SortingService.setFilter(params.filter());
+    }, true);
 
     this.init();
   }

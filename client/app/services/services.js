@@ -12,6 +12,7 @@ import MapService from './map.service';
 import DateService from './date.service';
 import GraphFilter from './graph-filter.service';
 import LanguageService from './language.service';
+import SortingService from './sorting.service';
 
 export default angular
   .module('app.services', [])
@@ -28,5 +29,6 @@ export default angular
   .service('MapService', MapService)
   .service('GraphFilter', GraphFilter)
   .service('LanguageService', LanguageService)
+  .service('SortingService', SortingService)
 
   .name;
