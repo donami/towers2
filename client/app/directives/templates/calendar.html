@@ -29,7 +29,21 @@
     <div ng-repeat="i in vm.range(vm.days[0].date.isoWeekday() - 1) track by $index" class="day empty"></div>
     <div ng-repeat="day in vm.days" class="day" ng-class="{'has-claims': day.claims.length, 'is-new-moon': day.newMoon, 'break': (day.date.isoWeekday() == 1)}">
       <div class="day-number">{{ day.date.format('DD') }}</div>
-      <popup ng-if="day.claims.length || day.newMoon" claims="day.claims" geld-collected="day.geld_collected" geld-bonus="day.geld_bonus" new-moon="day.newMoon"></popup>
+
+      <popup ng-if="day.claims.length || day.newMoon" claims="day.claims" geld-collected="day.geld_collected" geld-bonus="day.geld_bonus" new-moon="day.newMoon" class="day-info">
+
+        <div ng-if="day.claims.length">
+          Claims: {{ day.claims.length }} <br>
+          Geld collected: {{ day.geld_collected }} <br>
+          Geld bonus: {{ day.geld_bonus }} <br>
+        </div>
+
+        <div ng-if="day.newMoon">
+          New moon starts!
+        </div>
+
+      </popup>
+
     </div>
 
   </div>

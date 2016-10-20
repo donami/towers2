@@ -51,7 +51,7 @@ $calendar-border-style: #ddd 1px solid;
         border-left: $calendar-border-style;
         clear: both;
       }
-      
+
       &.has-claims {
         background: #E7F4F2;
 
@@ -73,6 +73,11 @@ $calendar-border-style: #ddd 1px solid;
         position: absolute;
         top: 5px;
         right: 5px;
+      }
+
+      .day-info {
+        font-size: 0.8em;
+        cursor: pointer;
       }
     }
 
