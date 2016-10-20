@@ -35,15 +35,15 @@ router.get('/refresh', function(req, res) {
     value: null,
     achieved: false,
   };
-  const FULL_MOON_10 = {
-    id: 'FULL_MOON_10',
-    title: 'Full Moon 10',
+  const MOON_CAMPER_10 = {
+    id: 'MOON_CAMPER_10',
+    title: 'Moon Camper 10',
     value: 10,
     achieved: false,
   };
-  const FULL_MOON_25 = {
-    id: 'FULL_MOON_25',
-    title: 'Full Moon 25',
+  const MOON_CAMPER_25 = {
+    id: 'MOON_CAMPER_25',
+    title: 'Moon Camper 25',
     value: 25,
     achieved: false,
   };
@@ -125,6 +125,66 @@ router.get('/refresh', function(req, res) {
     value: 30,
     achieved: false,
   };
+  const FULL_MOON_1 = {
+    id: 'FULL_MOON_1',
+    title: 'Full Moon 1',
+    value: 1,
+    achieved: false,
+  };
+  const FULL_MOON_5 = {
+    id: 'FULL_MOON_5',
+    title: 'Full Moon 5',
+    value: 5,
+    achieved: false,
+  };
+  const FULL_MOON_10 = {
+    id: 'FULL_MOON_10',
+    title: 'Full Moon 10',
+    value: 10,
+    achieved: false,
+  };
+
+  // Check if user has earned achievement for claiming X amount of towers within one minute of a new moon
+  const TYPE_FULL_MOON_X = new (function() {
+    // TODO: unit test this function
+    this.values = [FULL_MOON_1, FULL_MOON_5, FULL_MOON_10];
+    this.check = function(newMoons, data) {
+
+      // Filter out the moons in the future as they are not relevant
+      var moons = newMoons.filter(function(moon) {
+        return moment().diff(moon.iso8601, 'days') > 0;
+      });
+
+      var count = 0;
+      // Go through all the filtered new moons
+      moons.forEach(function(moon) {
+
+        var found = data.find(function(obj) {
+          return moment(obj.claimed_on).isBetween(moment(moon.iso8601).subtract(1, 'minute'), moment(moon.iso8601).add(1, 'minute'));
+        });
+
+        if (found) count++;
+      });
+
+      this.values.map((obj) => {
+        if (obj.value <= count) {
+          obj.achieved = true;
+        }
+
+        return obj;
+      });
+
+      return this.values;
+    };
+    this.promise = new Promise((resolve, reject) => {
+      var pClaims = request({ uri: api.API_PERSONAL + '?apiKey=' + req.cookies.userApiKey + '&start=' + API_MIN_DATE + '&end=' + API_MAX_DATE, json: true });
+      var pMoons = request({ uri: api.API_NEW_MOONS + '?apiKey=' + req.cookies.userApiKey, json: true });
+
+      Promise.all([pClaims, pMoons])
+        .then((values) => resolve(this.check(values[1], values[0])))
+        .catch((error) => reject(error));
+    });
+  });
 
   // Check if user has earned achievement for claiming X amount of towers from other players
   const TYPE_CHALLENGER_X = new (function() {
@@ -306,9 +366,9 @@ router.get('/refresh', function(req, res) {
   });
 
   // Check if user has made a claim within x minutes of a new moon
-  const TYPE_FULL_MOON = new (function() {
+  const TYPE_MOON_CAMPER = new (function() {
     var self = this;
-    this.values = [FULL_MOON_10, FULL_MOON_25];
+    this.values = [MOON_CAMPER_10, MOON_CAMPER_25];
     this.check = function(newMoons, data) {
 
       // Filter out the new moons that are in the future as they are not relevant
@@ -375,10 +435,11 @@ router.get('/refresh', function(req, res) {
           TYPE_CLAIM_X_TOWERS.promise,
           TYPE_BUILD_X_TOWERS.promise,
           TYPE_HALL_OF_FAME.promise,
-          TYPE_FULL_MOON.promise,
+          TYPE_MOON_CAMPER.promise,
           TYPE_VISITOR_X.promise,
           TYPE_STREAK_X.promise,
           TYPE_CHALLENGER_X.promise,
+          TYPE_FULL_MOON_X.promise
         ])
         .then((values) => resolve(_.flatten(values)))
         .catch((error) => reject(error));
