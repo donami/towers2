@@ -3,75 +3,14 @@
 
   <div class="alert alert-info"><strong>{{ '_YOUR_API_KEY' | translate }}</strong> {{ vm.userApiKey }}</div>
 
-  <div ng-if="vm.lastClaimedTower.tower_id > 0">
-    <h2>{{ '_LATEST_CLAIMED_TOWER' | translate }}</h2>
+  <last-claimed-tower tower="vm.lastClaimedTower"></last-claimed-tower>
 
-    <table class="table table-striped table-bordered">
-      <tr>
-        <th>{{ '_NAME' | translate }}:</th>
-        <td><a ui-sref="tower({id: vm.lastClaimedTower.tower_id})">{{ vm.lastClaimedTower.info.tower_name || 'ID: ' + vm.lastClaimedTower.tower_id }}</a></td>
-      </tr>
-      <tr>
-        <th>{{ '_BUILD_DATE' | translate }}:</th>
-        <td>{{ vm.lastClaimedTower.info.created_on || '-' | date:'mediumDate' }}</td>
-      </tr>
-      <tr>
-        <th>{{ '_ADDRESS' | translate }}:</th>
-        <td>{{ vm.lastClaimedTower.info.formatted_address || '-' }}</td>
-      </tr>
-      <tr>
-        <th>{{ '_TOWER_FIRST_CLAIMED_ON' | translate }}:</th>
-        <td>{{ vm.lastClaimedTower.stats.first_claimed_on || '-' | date:'mediumDate' }}</td>
-      </tr>
-      <tr>
-        <th>{{ '_TOWER_LAST_CLAIMED_ON' | translate }}:</th>
-        <td>{{ vm.lastClaimedTower.stats.last_claimed_on || '-' | date:'mediumDate' }}</td>
-      </tr>
-      <tr>
-        <th>{{ '_TOWER_GELD_COLLECTED' | translate }}:</th>
-        <td>{{ vm.lastClaimedTower.stats.total_geld_collected || '-' | number }}</td>
-      </tr>
-      <tr>
-        <th>{{ '_TOWER_GELD_BONUS' | translate }}:</th>
-        <td>{{ vm.lastClaimedTower.stats.total_geld_bonus || '-' | number }}</td>
-      </tr>
-    </table>
-
-  </div>
-
-  <div>
-    <h2>{{ '_TOWERS_CLAIMED' | translate }}</h2>
-    <table class="table table-striped">
-
-      <thead>
-        <tr>
-          <th class="col-md-2 pointer" ng-click="vm.sortBy('meta.tower_name', true)">{{ '_TOWER' | translate }}</th>
-          <th class="col-md-2 pointer" ng-click="vm.sortBy('claimed_on')">{{ '_CLAIMED_ON' | translate}}</th>
-          <th class="col-md-5 pointer" ng-click="vm.sortBy('formatted_address')">{{ '_ADDRESS' | translate }}</th>
-          <th class="col-md-2 pointer" ng-click="vm.sortBy('geld_collected', true)">{{ '_GELD_COLLECTED' | translate }}</th>
-          <th class="col-md-1 pointer" ng-click="vm.sortBy('geld_bonus', true)">{{ '_GELD_BONUS' | translate }}</th>
-        </tr>
-      </thead>
-
-      <tbody>
-        <tr ng-repeat="tower in vm.claimedTowers | filter: vm.paginate">
-          <td ng-if="!tower.meta">
-            <a ui-sref="tower({id: tower.tower_id})">ID: {{ tower.tower_id }}</a>
-          </td>
-          <td ng-if="tower.meta">
-            <a ui-sref="tower({id: tower.tower_id})">{{ tower.meta.tower_name || 'ID: ' + tower.tower_id }}</a>
-          </td>
-          <td>{{ tower.claimed_on | date:'mediumDate' }}</td>
-          <td>{{ tower.formatted_address }}</td>
-          <td>{{ tower.geld_collected | number:0 }}</td>
-          <td>{{ tower.geld_bonus | number:0 }}</td>
-        </tr>
-      </tbody>
-
-    </table>
-
-    <ul uib-pagination total-items="vm.totalItems" ng-model="vm.currentPage" max-size="5" boundary-links="true" class="pagination-sm"></ul>
-  </div>
+  <towers-claimed claims="vm.claimedTowers" 
+    filter="vm.paginate"
+    total-items="vm.totalItems"
+    sort-by="vm.sortBy"
+    current-page="vm.currentPage">
+  </towers-claimed>
 
 </div>
 <!-- / Main view -->

@@ -14,18 +14,20 @@ class MeController {
     this.state = {
       view: $state.current.name
     };
-    this.claimedTowers = [];
+    this.claimedTowers = {loading: true};
     this.totalItems = 0;
     this.currentPage = 1;
     this.numPerPage = 5;
     this.orderBy = 'claimed_on';
     this.reverse = true;
     this.paginate = this.paginate.bind(this);
+    this.sortBy = this.sortBy.bind(this);
 
     this.lastClaimedTower = {
       tower_id: 0,
       info: [],
-      stats: []
+      stats: [],
+      loading: true
     };
 
     // For displaying of graphs
@@ -94,8 +96,8 @@ class MeController {
   }
 
   init() {
-    this.getClaims();
     this.getLatestClaimedTower();
+    this.getClaims();
   }
 
   // Get your claims
@@ -141,6 +143,7 @@ class MeController {
         claimedTower.tower_id = towerId;
         claimedTower.info = info;
         claimedTower.stats = stats;
+        claimedTower.loading = false;
 
         this.lastClaimedTower = claimedTower;
       })

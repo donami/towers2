@@ -6,6 +6,7 @@ import 'angular-cache';
 import 'angular-translate';
 import Services from './../../services/services';
 import Filters from './../../filters/filters';
+import Directives from './../../directives/directives';
 import TemplateMain from './views/me.main.html';
 import TemplateCalendar from './views/me.calendar.html';
 import TemplateGraph from './views/me.graphs.html';
@@ -14,6 +15,7 @@ let meModule = angular.module('me', [
   uiRouter,
   Services,
   Filters,
+  Directives,
   'pascalprecht.translate',
   'angular-cache',
   'ngCookies',
