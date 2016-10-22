@@ -13,7 +13,9 @@
     <h1 class="page-title">Stats</h1>
   </div>
 
-  <div class="row">
+  <spinner ng-if="vm.state.loading"></spinner>
+
+  <div class="row" ng-if="!vm.state.loading">
 
     <!-- Col -->
     <div class="col-md-3 col-md-push-9">

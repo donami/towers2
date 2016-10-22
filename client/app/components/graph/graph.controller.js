@@ -13,6 +13,9 @@ class GraphController {
 
     this.moons = [];
     this.filter = {};
+    this.state = {
+      loading: true
+    };
 
     this.yearOptions = GraphFilter.getYearOptions();
     this.filterOptions = GraphFilter.getFilterOptions();
@@ -23,6 +26,7 @@ class GraphController {
   }
 
   init() {
+    this.state.loading = true;
     this.getNewMoons();
 
     this.graphData = this.GraphFilter.getGraphData();
@@ -48,27 +52,24 @@ class GraphController {
 
         // Get data for players with most geld bonus
         this.graphData.geldBonus = Object.assign(this.graphData.geldBonus, this.DataFactory.handleMostGeldBonus(response.data));
-      })
-      .catch((error) => console.log(error));
 
-    this.TowerFactory.getLeaderboardTowerBuilder(startDate, endDate)
+        return this.TowerFactory.getLeaderboardTowerBuilder(startDate, endDate);
+      })
       .then((response) => {
         // Get data for players who built the most towers
         this.graphData.towersBuilt = Object.assign(this.graphData.towersBuilt, this.DataFactory.handleMostTowersBuilt(response.data));
-      })
-      .catch((error) => console.log(error));
 
-    this.TowerFactory.getStats(startDate, endDate)
+        return this.TowerFactory.getStats(startDate, endDate);
+      })
       .then((response) => {
         // Filter data to get towerst with most claims
         this.graphData.towerHighestClaim = Object.assign(this.graphData.towerHighestClaim, this.DataFactory.handleTowersTopClaimed(response.data));
 
         // Filter out data to get towers with highest player count
         this.graphData.towerPlayerCount = Object.assign(this.graphData.towerPlayerCount, this.DataFactory.handleTowersPlayerCount(response.data));
-      })
-      .catch((error) => console.log(error));
 
-    this.TowerFactory.getTowers(startDate, endDate)
+        return this.TowerFactory.getTowers(startDate, endDate);
+      })
       .then((response) => {
         // Filter data to get cities with most towers built
         this.DataFactory.handleCitiesWithMostTowers(response.data).forEach((obj) => {
@@ -76,6 +77,7 @@ class GraphController {
           this.graphData.towersByCity.labels.push(obj.city);
         });
       })
+      .then(() => this.state.loading = false)
       .catch((error) => console.log(error));
   }
 
