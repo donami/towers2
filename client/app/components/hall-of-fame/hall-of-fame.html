@@ -12,9 +12,14 @@
     <h1 class="page-title">Hall of Fame</h1>
   </div>
 
+  <spinner ng-if="vm.state.loading"></spinner>
 
-  <h3 translate>{{ '_FIRST_BUILD_COUNTRY' }}</h3>
+  <div class="hall-of-fame-list" ng-if="!vm.state.loading">
 
-  <hall-of-fame data-ng-repeat="country in vm.countries" class="fame-box" country="country" />
+    <h3 translate>{{ '_FIRST_BUILD_COUNTRY' }}</h3>
+
+    <hall-of-fame data-ng-repeat="country in vm.countries" class="fame-box" country="country" />
+
+  </div>
 
 </div>
