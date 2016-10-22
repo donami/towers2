@@ -9,6 +9,7 @@ class GraphController {
     this.MoonFactory = MoonFactory;
     this.smoothScroll = smoothScroll;
     this.GraphFilter = GraphFilter;
+    this.$q = $q;
     this.toastr = toastr;
 
     this.moons = [];
@@ -42,43 +43,40 @@ class GraphController {
     if (!startDate) startDate = '2000-01-01';
     if (!endDate) endDate = moment().add(10, 'years').format('YYYY-MM-DD');
 
-    this.TowerFactory.getLeaderboard(startDate, endDate)
-      .then((response) => {
-        // Handle data for players with most claims
-        this.graphData.claimCount = Object.assign(this.graphData.claimCount, this.DataFactory.handleTopClaims(response.data));
+    this.$q.all([
+      this.TowerFactory.getLeaderboard(startDate, endDate),
+      this.TowerFactory.getLeaderboardTowerBuilder(startDate, endDate),
+      this.TowerFactory.getStats(startDate, endDate),
+      this.TowerFactory.getTowers(startDate, endDate),
 
-        // Get the data for players collecting most geld
-        this.graphData.geldCollected = Object.assign(this.graphData.geldCollected, this.DataFactory.handleMostGeldCollected(response.data));
+    ])
+    .then(([leaderboard, towerBuilder, stats, towers]) => {
+      // Handle data for players with most claims
+      this.graphData.claimCount = Object.assign(this.graphData.claimCount, this.DataFactory.handleTopClaims(leaderboard.data));
 
-        // Get data for players with most geld bonus
-        this.graphData.geldBonus = Object.assign(this.graphData.geldBonus, this.DataFactory.handleMostGeldBonus(response.data));
+      // Get the data for players collecting most geld
+      this.graphData.geldCollected = Object.assign(this.graphData.geldCollected, this.DataFactory.handleMostGeldCollected(leaderboard.data));
 
-        return this.TowerFactory.getLeaderboardTowerBuilder(startDate, endDate);
-      })
-      .then((response) => {
-        // Get data for players who built the most towers
-        this.graphData.towersBuilt = Object.assign(this.graphData.towersBuilt, this.DataFactory.handleMostTowersBuilt(response.data));
+      // Get data for players with most geld bonus
+      this.graphData.geldBonus = Object.assign(this.graphData.geldBonus, this.DataFactory.handleMostGeldBonus(leaderboard.data));
 
-        return this.TowerFactory.getStats(startDate, endDate);
-      })
-      .then((response) => {
-        // Filter data to get towerst with most claims
-        this.graphData.towerHighestClaim = Object.assign(this.graphData.towerHighestClaim, this.DataFactory.handleTowersTopClaimed(response.data));
+      // Get data for players who built the most towers
+      this.graphData.towersBuilt = Object.assign(this.graphData.towersBuilt, this.DataFactory.handleMostTowersBuilt(towerBuilder.data));
 
-        // Filter out data to get towers with highest player count
-        this.graphData.towerPlayerCount = Object.assign(this.graphData.towerPlayerCount, this.DataFactory.handleTowersPlayerCount(response.data));
+      // Filter data to get towerst with most claims
+      this.graphData.towerHighestClaim = Object.assign(this.graphData.towerHighestClaim, this.DataFactory.handleTowersTopClaimed(stats.data));
 
-        return this.TowerFactory.getTowers(startDate, endDate);
-      })
-      .then((response) => {
-        // Filter data to get cities with most towers built
-        this.DataFactory.handleCitiesWithMostTowers(response.data).forEach((obj) => {
-          this.graphData.towersByCity.data.push(obj.amount);
-          this.graphData.towersByCity.labels.push(obj.city);
-        });
-      })
-      .then(() => this.state.loading = false)
-      .catch((error) => console.log(error));
+      // Filter out data to get towers with highest player count
+      this.graphData.towerPlayerCount = Object.assign(this.graphData.towerPlayerCount, this.DataFactory.handleTowersPlayerCount(stats.data));
+
+      // Filter data to get cities with most towers built
+      this.DataFactory.handleCitiesWithMostTowers(towers.data).forEach((obj) => {
+        this.graphData.towersByCity.data.push(obj.amount);
+        this.graphData.towersByCity.labels.push(obj.city);
+      });
+    })
+    .then(() => this.state.loading = false)
+    .catch((error) => console.log(error));
   }
 
   filterData() {
