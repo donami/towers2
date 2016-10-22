@@ -1,5 +1,5 @@
 <!-- New moon leaderboard -->
-<div>
+<div ng-if="!vm.state.loading">
 
   <label>Select new moon</label>
   <select class="form-control" ng-options="o.iso8601 | date for o in vm.newMoons" ng-model="$parent.vm.selectedNewMoon" ng-change="vm.selectNewMoon()"></select>

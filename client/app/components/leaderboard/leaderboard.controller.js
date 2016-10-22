@@ -1,13 +1,16 @@
 class LeaderboardController {
-  constructor($scope, TowerFactory, MoonFactory, $state, toastr) {
+  constructor($scope, TowerFactory, MoonFactory, $state, toastr, $q, $timeout) {
     'ngInject';
 
     this.TowerFactory = TowerFactory;
     this.MoonFactory = MoonFactory;
     this.toastr = toastr;
+    this.$timeout = $timeout;
+    this.$q = $q;
 
     this.state = {
       view: $state.current.name,
+      loading: true,
     };
     this.leaderboard = [];
     this.selectedNewMoon = {};
@@ -15,6 +18,7 @@ class LeaderboardController {
     this.reverseOrder = false;
 
     $scope.$watch(() => $state.current.name, (newValue) => {
+      this.state.loading = true;
       this.state.view = newValue;
 
       this.init();
@@ -24,12 +28,13 @@ class LeaderboardController {
   init() {
     switch (this.state.view) {
       case 'leaderboard.new-moons':
-        this.loadNewMoons();
-        this.getLeaderboardMoons();
+          this.loadNewMoons().then(() => this.state.loading = false);
+          this.getLeaderboardMoons();
         break;
 
       case 'leaderboard.main':
-        this.getLeaderboard();
+        this.getLeaderboard()
+          .then(() => this.state.loading = false);
         break;
     }
   }
@@ -53,14 +58,14 @@ class LeaderboardController {
   }
 
   getLeaderboard() {
-    this.TowerFactory.getLeaderboard()
+    return this.TowerFactory.getLeaderboard()
       .then((response) => this.leaderboard = response.data)
       .then(() => this.sort(this.orderBy, true))
       .catch(error => console.log(error));
   }
 
   loadNewMoons() {
-    this.MoonFactory.getNewMoons()
+    return this.MoonFactory.getNewMoons()
       .then((response) => {
         let today = new Date();
         let date;

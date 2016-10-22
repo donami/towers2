@@ -1,5 +1,5 @@
 <!-- Overall leaderboard -->
-<table class="table table-striped table-hover">
+<table class="table table-striped table-hover" ng-if="!vm.state.loading">
   <thead>
     <tr>
       <th class="col-md-1 pointer" ng-click="vm.setSort('player_alias')">{{ '_PLAYER' | translate }}</th>

@@ -11,15 +11,16 @@
   <div class="heading">
     <div class="options">
       <a ui-sref=".main" class="btn btn-default" ng-class="{'btn-info': vm.state.view == 'leaderboard.main'}">
-        <span ng-if="state.loading" class="glyphicon glyphicon-refresh spinner"></span> Overall
+        <span ng-if="vm.state.loading" class="glyphicon glyphicon-refresh spinner"></span> Overall
       </a>
       <a ui-sref=".new-moons" class="btn btn-default" ng-class="{'btn-info': vm.state.view == 'leaderboard.new-moons'}">
-        <span ng-if="state.loading" class="glyphicon glyphicon-refresh spinner"></span> Geld by new moon
+        <span ng-if="vm.state.loading" class="glyphicon glyphicon-refresh spinner"></span> Geld by new moon
       </a>
     </div>
     <h1 class="page-title">{{ '_LEADERBOARD' | translate }}</h1>
   </div>
 
+  <spinner ng-if="vm.state.loading"></spinner>
   <div ui-view></div>
 
 </div>
