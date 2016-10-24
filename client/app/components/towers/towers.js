@@ -4,7 +4,7 @@ import ngCache from 'angular-cache';
 import ngTranslate from 'angular-translate';
 import 'ng-table';
 import towersComponent from './towers.component';
-import Services from '../../services/services'
+import Services from '../../services/services';
 
 let towersModule = angular.module('towers', [
   uiRouter,

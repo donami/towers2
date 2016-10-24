@@ -8,7 +8,7 @@ module.exports = {
   entry: {},
   module: {
     loaders: [
-      { test: /\.js$/, exclude: [/app\/lib/, /node_modules/], loader: 'ng-annotate!babel' },
+      { test: /\.js$/, exclude: [/node_modules/], loader: 'ng-annotate!babel!jshint-loader' },
       { test: /\.html$/, loader: 'raw' },
       {
         test: /\.woff($|\?)|\.woff2($|\?)|\.ttf($|\?)|\.eot($|\?)|\.svg($|\?)/,
@@ -22,6 +22,9 @@ module.exports = {
         loader: ExtractTextPlugin.extract('css!sass')
       },
     ],
+  },
+  jshint: {
+    esnext: true
   },
   plugins: [
     new HtmlWebpackPlugin({

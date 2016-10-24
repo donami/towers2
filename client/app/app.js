@@ -75,7 +75,7 @@ angular.module('app', [
       if (!$cookies.get('userApiKey') && to.name !== 'login') {
         return $state.target('login');
       }
-    })
+    });
   })
 
   .factory('errorInterceptor', ($q, ErrorFactory) => {

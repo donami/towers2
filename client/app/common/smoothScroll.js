@@ -36,7 +36,7 @@
 			callbackBefore = options.callbackBefore || function() {},
 			callbackAfter = options.callbackAfter || function() {},
 			container = document.getElementById(options.containerId) || null,
-			containerPresent = (container != undefined && container != null);
+			containerPresent = (container !== undefined && container !== null);
 
 		/**
 		 * Retrieve current location

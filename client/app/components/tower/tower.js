@@ -27,7 +27,7 @@ let towerModule = angular.module('tower', [
     .state('tower.log', {
       url: '/log',
       template: TemplateLog,
-    })
+    });
 })
 
 .component('tower', towerComponent)

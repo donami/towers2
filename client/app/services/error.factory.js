@@ -4,7 +4,7 @@ let ErrorFactory = function($rootScope) {
   let errors = [];
 
   let addErrorMessage = (message) => {
-    errors.push(message)
+    errors.push(message);
   };
 
   let getErrorMessages = () => {
