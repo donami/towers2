@@ -24,11 +24,11 @@ class GraphController {
 
     this.init();
     this.loadData();
+    this.getNewMoons();
   }
 
   init() {
     this.state.loading = true;
-    this.getNewMoons();
 
     this.graphData = this.GraphFilter.getGraphData();
   }
@@ -48,7 +48,6 @@ class GraphController {
       this.TowerFactory.getLeaderboardTowerBuilder(startDate, endDate),
       this.TowerFactory.getStats(startDate, endDate),
       this.TowerFactory.getTowers(startDate, endDate),
-
     ])
     .then(([leaderboard, towerBuilder, stats, towers]) => {
       // Handle data for players with most claims
@@ -80,15 +79,15 @@ class GraphController {
   }
 
   filterData() {
-    var value = this.filter.value;
+    let value = this.filter.value;
 
-    var options = {
+    let options = {
       selectedYear: this.selectedYear,
       filterByMoonStart: this.filterByMoonStart,
       filterByMoonEnd: this.filterByMoonEnd,
     };
 
-    var filter = this.GraphFilter.applyFilter(value, options);
+    let filter = this.GraphFilter.applyFilter(value, options);
 
     if (filter.error) {
       this.toastr.error(filter.error.message, filter.error.title);
@@ -108,8 +107,8 @@ class GraphController {
 
   // Scroll to anchor
   gotoAnchor(x) {
-    var element = document.getElementById('anchor' + x);
-    var options = {
+    let element = document.getElementById('anchor' + x);
+    let options = {
       duration: 700,
       easing: 'easeInQuad',
       offset: 0,
