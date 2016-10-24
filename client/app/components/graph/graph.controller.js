@@ -35,7 +35,10 @@ class GraphController {
 
   getNewMoons() {
     return this.MoonFactory.getNewMoons()
-      .then((response) => this.moons = response.data)
+      .then((response) => {
+        let today = new Date();
+        this.moons = response.data.filter((obj) => new Date(obj.iso8601) < today);
+      })
       .catch((error) => console.log(error));
   }
 
