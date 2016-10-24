@@ -1,3 +1,5 @@
+/*jshint -W018 */
+
 import moment from 'moment';
 
 class GraphFilter {
@@ -136,6 +138,11 @@ class GraphFilter {
       scales: {
         yAxes: [{
           ticks: {
+            callback: (value) => {
+              if ( !(value % 1) ) {
+                return Number(value).toFixed(0);
+              }
+            },
             min: 0,         // Graph starting at
           }
         }]
