@@ -36,15 +36,14 @@ class TowersClaimed {
 
         </table>
 
-        <ul uib-pagination total-items="totalItems" ng-model="currentPage" max-size="5" boundary-links="true" class="pagination-sm" ng-if="!claims.loading"></ul>
+        <ul uib-pagination total-items="pagination.totalItems" ng-model="pagination.currentPage" max-size="pagination.maxSize" boundary-links="true" class="pagination-sm" ng-if="!claims.loading"></ul>
       </div>
     `;
     this.scope = {
       claims: '=',
       filter: '=',
-      totalItems: '=',
       sortBy: '=',
-      currentPage: '=',
+      pagination: '=',
     };
     this.replace = 'true';
   }

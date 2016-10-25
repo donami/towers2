@@ -15,13 +15,16 @@ class MeController {
       view: $state.current.name
     };
     this.claimedTowers = {loading: true};
-    this.totalItems = 0;
-    this.currentPage = 1;
-    this.numPerPage = 5;
     this.orderBy = 'claimed_on';
     this.reverse = true;
     this.paginate = this.paginate.bind(this);
     this.sortBy = this.sortBy.bind(this);
+
+    this.pagination = {
+      currentPage: 1,
+      maxSize: 5,
+      totalItems: 0,
+    };
 
     this.favoriteTower = null;
     this.lastClaimedTower = {
@@ -99,7 +102,6 @@ class MeController {
   init() {
     this.getLatestClaimedTower();
     this.getClaims();
-    this.getFavoriteTower();
   }
 
   // Get your claims
@@ -109,7 +111,7 @@ class MeController {
         this.DataFactory.attatchMetaToClaims(response.data)
           .then((data) => {
             this.claimedTowers = this.$filter('orderBy')(data, this.orderBy, this.reverse);
-            this.totalItems = data.length;
+            this.pagination.totalItems = data.length;
           })
           .catch(error => console.log(error));
 
@@ -209,8 +211,8 @@ class MeController {
   // Filter for paginating the results
   paginate(value) {
     let begin, end, index;
-    begin = (this.currentPage - 1) * this.numPerPage;
-    end = begin + this.numPerPage;
+    begin = (this.pagination.currentPage - 1) * this.pagination.maxSize;
+    end = begin + this.pagination.maxSize;
     index = this.claimedTowers.indexOf(value);
     return (begin <= index && index < end);
   }

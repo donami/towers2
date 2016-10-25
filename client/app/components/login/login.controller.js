@@ -12,7 +12,6 @@ class LoginController {
 
   redirectIfAuthed() {
     if (this.AuthService.getAuthed()) {
-      console.log('SHOULD REDIRECT');
       this.$state.go('me');
     }
   }

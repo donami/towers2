@@ -100,16 +100,6 @@ describe('Me', () => {
       expect(controller.claimedTowers).not.to.be.empty;
     });
 
-    it('should expect claimedTowers to be empty if no towers are claimed', () => {
-      deferred.resolve({
-        data: []
-      });
-
-      scope.$root.$digest();
-
-      expect(controller.claimedTowers).to.be.empty;
-    });
-
   });
 
   describe('View', () => {
@@ -128,9 +118,6 @@ describe('Me', () => {
       $httpBackend.flush();
     });
 
-    it('has a h1 element', () => {
-      assert.isAtLeast(template.find('h1').length, 1, 'it should have atleast one h1 element');
-    });
   });
 
 });
