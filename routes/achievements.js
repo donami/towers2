@@ -146,7 +146,6 @@ router.get('/refresh', function(req, res) {
 
   // Check if user has earned achievement for claiming X amount of towers within one minute of a new moon
   const TYPE_FULL_MOON_X = new (function() {
-    // TODO: unit test this function
     this.values = [FULL_MOON_1, FULL_MOON_5, FULL_MOON_10];
     this.check = function(newMoons, data) {
 
