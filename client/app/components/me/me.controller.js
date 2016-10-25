@@ -23,6 +23,7 @@ class MeController {
     this.paginate = this.paginate.bind(this);
     this.sortBy = this.sortBy.bind(this);
 
+    this.favoriteTower = null;
     this.lastClaimedTower = {
       tower_id: 0,
       info: [],
@@ -98,6 +99,7 @@ class MeController {
   init() {
     this.getLatestClaimedTower();
     this.getClaims();
+    this.getFavoriteTower();
   }
 
   // Get your claims
@@ -115,6 +117,7 @@ class MeController {
         this.getClaimsPerDay(response.data);
         this.getClaimsPerWeekDay(response.data);
         this.getClaimsPerHour(response.data);
+        this.getFavoriteTower(response.data);
       })
       .catch(error => console.log(error));
   }
@@ -175,6 +178,32 @@ class MeController {
     }
 
     this.graphData.claimsPerHour.data.push(values);
+  }
+
+  getFavoriteTower(data) {
+    if (data !== undefined) {
+      let geldCollected = 0;
+
+      let claims = _.chain(data)
+                    .groupBy('tower_id')
+                    .sortBy((obj) => obj.length)
+                    .reverse()
+                    .first()
+                    .value();
+
+      claims.forEach((obj) => {
+        geldCollected += parseInt(obj.geld_collected);
+      });
+
+      if (claims.length > 0) {
+        this.favoriteTower = {
+          tower: _.first(claims),
+          claims: claims.length,
+          geld_collected: geldCollected
+        };
+      }
+    }
+    return false;
   }
 
   // Filter for paginating the results

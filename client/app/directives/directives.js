@@ -7,6 +7,7 @@ import PopupDirective from './popup.directive';
 import SpinnerDirective from './spinner.directive';
 import LastClaimedTowerDirective from './last-claimed-tower.directive';
 import TowersClaimedDirective from './towers-claimed.directive';
+import FavoriteTowerDirective from './favorite-tower.directive';
 
 var module = angular.module('app.directives', [])
   .directive('graph', GraphDirective.directiveFactory)
@@ -18,6 +19,7 @@ var module = angular.module('app.directives', [])
   .directive('spinner', () => new SpinnerDirective())
   .directive('lastClaimedTower', () => new LastClaimedTowerDirective())
   .directive('towersClaimed', () => new TowersClaimedDirective())
+  .directive('favoriteTower', () => new FavoriteTowerDirective())
 
 .name;
 

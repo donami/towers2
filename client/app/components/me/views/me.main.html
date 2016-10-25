@@ -3,14 +3,36 @@
 
   <div class="alert alert-info"><strong>{{ '_YOUR_API_KEY' | translate }}</strong> {{ vm.userApiKey }}</div>
 
-  <last-claimed-tower tower="vm.lastClaimedTower"></last-claimed-tower>
+  <!-- Row -->
+  <div class="row">
 
-  <towers-claimed claims="vm.claimedTowers" 
-    filter="vm.paginate"
-    total-items="vm.totalItems"
-    sort-by="vm.sortBy"
-    current-page="vm.currentPage">
-  </towers-claimed>
+    <div class="col-md-6">
+      <last-claimed-tower tower="vm.lastClaimedTower"></last-claimed-tower>
+    </div>
+
+    <div class="col-md-6">
+      <favorite-tower tower="vm.favoriteTower" ng-if="vm.favoriteTower"></favorite-tower>
+    </div>
+
+  </div>
+  <!-- / Row -->
+
+  <!-- Row -->
+  <div class="row">
+    <div class="col-md-12">
+
+      <towers-claimed claims="vm.claimedTowers"
+        filter="vm.paginate"
+        total-items="vm.totalItems"
+        sort-by="vm.sortBy"
+        current-page="vm.currentPage">
+      </towers-claimed>
+
+    </div>
+  </div>
+  <!-- / Row -->
+
+
 
 </div>
 <!-- / Main view -->

@@ -81,6 +81,16 @@ h1.page-title {
 
 }
 
+.panel-box {
+  border: #D9EDF7 4px solid;
+  padding: 15px;
+  border-radius: 5px;
+
+  a, strong {
+    color: #fd935a;
+  }
+}
+
 /** Spinner **/
 .glyphicon.spinner {
     -webkit-animation: glyphicon-spin-r 1s infinite linear;
