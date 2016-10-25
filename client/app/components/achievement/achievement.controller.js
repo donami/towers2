@@ -32,7 +32,9 @@ class AchievementController {
       .then((response) => {
         this.state.loading = false;
 
-        if (response.data.length > earnedCount) {
+        // Display a message if there are more
+        // achievements completed than previous refresh
+        if ( (response.data.filter(obj => obj.achieved === true).length) > earnedCount ) {
           this.toastr.success('You have earned new achievements', 'Congratulations!');
         }
 
