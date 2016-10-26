@@ -28,6 +28,13 @@ class AuthService {
   auth(apiKey) {
     return this.$http.get(API_VERIFY_KEY + apiKey);
   }
+
+  logout() {
+    this.authed = false;
+    this.$cookies.remove('userApiKey');
+
+    localStorage.clear();
+  }
 }
 
 export default AuthService;

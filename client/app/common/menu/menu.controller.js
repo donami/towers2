@@ -9,7 +9,7 @@ class MenuController {
   }
 
   logout() {
-    this.AuthService.setAuthed(false);
+    this.AuthService.logout();
 
     this.toastr.success('You are now signed out', 'Signed out');
     this.$state.go('login');
