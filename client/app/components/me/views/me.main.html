@@ -6,11 +6,11 @@
   <!-- Row -->
   <div class="row">
 
-    <div class="col-md-6">
+    <div ng-class="{'col-md-6': vm.favoriteTower, 'col-md-12': !vm.favoriteTower}">
       <last-claimed-tower tower="vm.lastClaimedTower"></last-claimed-tower>
     </div>
 
-    <div class="col-md-6">
+    <div class="col-md-6" ng-if="vm.favoriteTower">
       <favorite-tower tower="vm.favoriteTower" ng-if="vm.favoriteTower"></favorite-tower>
     </div>
 
