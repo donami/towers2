@@ -193,11 +193,11 @@ class MeController {
                     .first()
                     .value();
 
-      claims.forEach((obj) => {
-        geldCollected += parseInt(obj.geld_collected);
-      });
+      if (claims !== undefined) {
+        claims.forEach((obj) => {
+          geldCollected += parseInt(obj.geld_collected);
+        });
 
-      if (claims.length > 0) {
         this.favoriteTower = {
           tower: _.first(claims),
           claims: claims.length,
