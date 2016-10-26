@@ -7,7 +7,7 @@ class TowersClaimed {
 
         <spinner ng-if="claims.loading"></spinner>
 
-        <div class="alert alert-info" ng-if="!claims.length">You have not made any claims yet</div>
+        <div class="alert alert-info" ng-if="!claims.loading && !claims.length">You have not made any claims yet</div>
 
         <table class="table table-striped" ng-if="!claims.loading && claims.length">
 
