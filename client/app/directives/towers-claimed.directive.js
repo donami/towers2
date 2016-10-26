@@ -7,7 +7,9 @@ class TowersClaimed {
 
         <spinner ng-if="claims.loading"></spinner>
 
-        <table class="table table-striped" ng-if="!claims.loading">
+        <div class="alert alert-info" ng-if="!claims.length">You have not made any claims yet</div>
+
+        <table class="table table-striped" ng-if="!claims.loading && claims.length">
 
           <thead>
             <tr>
@@ -36,7 +38,8 @@ class TowersClaimed {
 
         </table>
 
-        <ul uib-pagination total-items="pagination.totalItems" ng-model="pagination.currentPage" max-size="pagination.maxSize" boundary-links="true" class="pagination-sm" ng-if="!claims.loading"></ul>
+        <ul uib-pagination total-items="pagination.totalItems" ng-model="pagination.currentPage" max-size="pagination.maxSize" boundary-links="true" class="pagination-sm" ng-if="!claims.loading && claims.length"></ul>
+
       </div>
     `;
     this.scope = {
